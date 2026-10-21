@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Static documentation — Open Regard</title>
+    <script src="../dist/browser.js"></script>
+    <script src="./config.js"></script>
+    <link rel="stylesheet" href="../dist/style.css" />
+    <link rel="stylesheet" href="./demo.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <p>OPEN REGARD / STATIC DOCS</p>
+        <h1>The same preference.<br />A separate page.</h1>
+      </div>
+      <div id="controls"></div>
+    </header>
+    <nav aria-label="Example navigation">
+      <a href="./">Home</a><a href="./react.html">React example</a>
+    </nav>
+    <main>
+      <h2>Independent documents can agree</h2>
+      <p>
+        This page uses the same origin, storage key, profile IDs and tokens as
+        the application example. It initializes synchronously in the head,
+        before content is painted.
+      </p>
+      <h2>Keep the adoption contract visible</h2>
+      <p>
+        Apply your CSS to documentation, forms, navigation and portals you own.
+        Check small viewports and enlarged browser settings, including every
+        light and dark surface.
+      </p>
+    </main>
+    <script>
+      OpenRegard.mountWidget(document.getElementById("controls"), regard);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Open Regard — display preferences example</title>
+    <!-- Synchronous scripts apply the stored profile before body content can paint. Self-host these files. -->
+    <script src="../dist/browser.js"></script>
+    <script src="./config.js"></script>
+    <link rel="stylesheet" href="../dist/style.css" />
+    <link rel="stylesheet" href="./demo.css" />
+  </head>
+  <body>
+    <header>
+      <div>
+        <p>OPEN REGARD / EXAMPLE</p>
+        <h1>Room for everyone<br />to read.</h1>
+      </div>
+      <div id="controls"></div>
+    </header>
+    <nav aria-label="Example navigation">
+      <a href="./">Home</a><a href="./docs.html">Static documentation</a
+      ><a href="./react.html">React example</a
+      ><a href="https://github.com/inferal-oss/openregard">Source</a>
+    </nav>
+    <main>
+      <p>
+        Choose a site-owned display profile. Open Regard remembers your
+        selection and keeps this page and the documentation in sync.
+      </p>
+      <div class="grid">
+        <article>
+          <h2>Make room for the text</h2>
+          <p>
+            Flexible containers preserve content as text grows. This card has no
+            fixed height or clipped preview.
+          </p>
+          <label
+            >Search the example<input
+              type="search"
+              placeholder="Search all the documentation"
+          /></label>
+        </article>
+        <article class="dark">
+          <h2>Keep color pairs together</h2>
+          <p>
+            A dark surface needs its own foreground. Example profiles define
+            both instead of recoloring every element on the page.
+          </p>
+          <button type="button" id="reset">Reset preferences</button>
+        </article>
+      </div>
+      <h2>Two controls, one preference</h2>
+      <div id="secondary"></div>
+      <p>
+        Tab to a select, use the native keyboard controls, and continue reading
+        without losing focus.
+      </p>
+    </main>
+    <footer>
+      Installing a preference selector does not establish accessibility
+      conformance.
+    </footer>
+    <script>
+      OpenRegard.mountWidget(document.getElementById("controls"), regard);
+      OpenRegard.mountWidget(document.getElementById("secondary"), regard, {
+        icon: false,
+      });
+      document.getElementById("reset").onclick = () => regard.reset();
+    </script>
+  </body>
+</html>

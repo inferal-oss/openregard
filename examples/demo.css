@@ -1,0 +1,85 @@
+:root {
+  font-size: var(--reading-size, 100%);
+  color: var(--page-ink, #17352d);
+  background: var(--page-paper, #f6f5ed);
+  font-family: system-ui, sans-serif;
+  line-height: var(--reading-leading, 1.6);
+}
+body {
+  max-width: 64rem;
+  margin: auto;
+  padding: clamp(0.75rem, 4vw, 3rem);
+}
+header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: start;
+  justify-content: space-between;
+}
+h1 {
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  line-height: 1.15;
+  margin-block: 0.5em;
+  overflow-wrap: anywhere;
+}
+h2 {
+  line-height: 1.3;
+}
+a {
+  color: inherit;
+}
+header > * {
+  min-width: 0;
+  max-width: 100%;
+}
+#controls,
+#react-controls {
+  flex: 1 1 22rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 1rem;
+}
+article {
+  padding: 1.25rem;
+  border: 1px solid currentColor;
+  border-radius: 0.7rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.dark {
+  background: var(--panel-paper, #17352d);
+  color: var(--panel-ink, #fff);
+}
+input,
+button {
+  box-sizing: border-box;
+  font: inherit;
+  padding: 0.7em;
+  max-width: 100%;
+  min-width: 0;
+}
+input {
+  width: 100%;
+}
+label {
+  display: block;
+}
+button {
+  cursor: pointer;
+  border: 1px solid currentColor;
+  border-radius: 0.3em;
+  background: Canvas;
+  color: CanvasText;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block: 1rem;
+}
+footer {
+  margin-block: 2rem;
+}

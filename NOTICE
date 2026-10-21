@@ -1,0 +1,5 @@
+Open Regard was extracted and generalized from Startup Tier's display-preferences
+work, with authorization from its owner. Site-specific styles remain site-owned.
+The eye artwork in Open Regard is original and does not copy Lucide assets.
+The runnable React demonstration bundles React/React DOM/Scheduler; their MIT
+license notices are preserved in dist/react-demo.js.LEGAL.txt by esbuild.

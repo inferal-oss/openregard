@@ -1,0 +1,50 @@
+/* Widget only: all page typography, colors and layout belong to the adopter. */
+.openregard-widget {
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  color: inherit;
+}
+.openregard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+}
+.openregard-label {
+  overflow-wrap: anywhere;
+}
+.openregard-icon {
+  display: inline-flex;
+  flex: 0 0 1.2em;
+  inline-size: 1.2em;
+  block-size: 1.2em;
+}
+.openregard-icon svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+.openregard select {
+  box-sizing: border-box;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 2.75em;
+  padding: 0.5em;
+  border: 1px solid currentColor;
+  border-radius: 0.3em;
+  background: Canvas;
+  color: CanvasText;
+  font: inherit;
+  cursor: pointer;
+}
+.openregard select:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+.openregard-description {
+  display: block;
+  margin-block-start: 0.35em;
+  overflow-wrap: anywhere;
+  font-size: 0.9em;
+}
