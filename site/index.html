@@ -9,7 +9,7 @@
     />
     <meta name="theme-color" content="#f3f4ed" />
     <title>Open Regard — modular accessibility tools</title>
-    <script src="./dist/browser.js"></script>
+    <script src="./dist/display.browser.js"></script>
     <script src="./dist/presets.browser.js"></script>
     <script src="./examples/config.js"></script>
     <link rel="stylesheet" href="./dist/style.css" />
@@ -25,7 +25,7 @@
         ></a
       >
       <nav aria-label="Main">
-        <a href="./docs/">Documentation</a
+        <a href="./docs/">Documentation</a><a href="./presets/">Presets</a
         ><a href="https://www.npmjs.com/package/openregard"
           >npm <span aria-hidden="true">↗</span></a
         ><a href="#how-it-works">Modules</a
@@ -40,12 +40,12 @@
         <div class="hero-copy">
           <p class="eyebrow">A modular accessibility toolkit</p>
           <h1 id="hero-title">
-            Accessibility tools.<br /><em>Starting with Display.</em>
+            <span>Accessibility tools.</span>
+            <span class="hero-subtitle">Starting with Display.</span>
           </h1>
           <p class="intro">
-            Open Regard brings small accessibility tools together as independent
-            modules. The first, Display, adds configurable display preferences
-            to websites, applications and docs.
+            Independent accessibility modules for websites, apps and docs. Start
+            with Display: configurable preferences that stay in sync.
           </p>
           <div class="actions">
             <a class="button primary" href="#get-started"
@@ -55,8 +55,7 @@
             >
           </div>
           <p class="module-note">
-            Use the modules you need. Display is available today; more modules
-            will follow as the toolkit grows.
+            Display is available now. More modules will follow.
           </p>
           <p class="understated">
             TypeScript core · Native controls · Optional React · MIT
@@ -64,13 +63,12 @@
         </div>
         <div class="demo-card" id="try-it">
           <div class="demo-top">
-            <span class="eyebrow">This is the demo</span
-            ><span class="demo-orbit" aria-hidden="true">◉</span>
+            <span class="eyebrow">Display / Live demo</span>
           </div>
-          <h2>Display, in use<br />on this website.</h2>
+          <h2>Try your preferred view.</h2>
           <p>
-            This website uses Open Regard. Change the profile below and the
-            whole page follows.
+            This website uses Display. Choose a profile to change its text,
+            spacing and colors.
           </p>
           <div id="site-controls"></div>
           <div class="demo-rule"></div>
@@ -171,26 +169,21 @@
           </div>
           <div class="code-card">
             <div class="code-heading">
-              <span>your-site.js</span><span>Vanilla / TypeScript</span>
+              <span>Display module / Quick start</span>
+              <label class="snippet-picker" for="quickstart-framework"
+                >Example
+                <select
+                  id="quickstart-framework"
+                  aria-controls="quickstart-code"
+                >
+                  <option value="vanilla">Vanilla JavaScript</option>
+                  <option value="react">React</option>
+                </select>
+              </label>
             </div>
-            <pre><code><span class="code-purple">import</span> { createRegard, mountWidget }
-  <span class="code-purple">from</span> <span class="code-green">'openregard'</span>;
-
-<span class="code-purple">const</span> regard = createRegard({
-  version: <span class="code-green">1</span>,
-  defaultProfile: <span class="code-green">'original'</span>,
-  storageKey: <span class="code-green">'my-site-view'</span>,
-  controlLabel: <span class="code-green">'Choose your view'</span>,
-  profiles: [
-    { id: <span class="code-green">'original'</span>, label: <span class="code-green">'Original'</span> },
-    { id: <span class="code-green">'roomy'</span>, label: <span class="code-green">'Vision'</span>,
-      tokens: { <span class="code-green">'--reading-size'</span>: <span class="code-green">'125%'</span> } }
-  ]
-});
-
-mountWidget(container, regard);</code></pre>
+            <div id="quickstart-code"><!-- OPENREGARD_QUICKSTART --></div>
             <p class="code-caption">
-              Your CSS uses <code>var(--reading-size, 100%)</code>. Open Regard
+              Your CSS uses <code>var(--reading-size, 100%)</code>. Display
               handles the preference.
             </p>
           </div>

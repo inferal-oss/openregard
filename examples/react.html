@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>React binding — Open Regard Display</title>
     <!-- Self-host synchronous scripts so the saved profile applies before paint. -->
-    <script src="../dist/browser.js"></script>
+    <script src="../dist/display.browser.js"></script>
     <script src="../dist/presets.browser.js"></script>
     <script src="./config.js"></script>
     <link rel="stylesheet" href="../dist/style.css" />
@@ -51,12 +51,12 @@
           <p class="eyebrow">React binding</p>
           <h2>Subscribe, then render.</h2>
           <p>
-            <code>RegardWidget</code> uses the same native markup and public CSS
-            hooks as the vanilla widget. Pass <code>className</code> to scope
-            your design; keep the controller stable between renders.
+            <code>DisplayWidget</code> uses the same native markup and public
+            CSS hooks as the vanilla widget. Pass <code>className</code> to
+            scope your design; keep the controller stable between renders.
           </p>
-          <pre class="code-note"><code>&lt;RegardWidget
-  regard={regard}
+          <pre class="code-note"><code>&lt;DisplayWidget
+  display={regard}
   className="demo-widget"
 /&gt;</code></pre>
         </article>

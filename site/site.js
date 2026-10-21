@@ -1,5 +1,8 @@
-OpenRegard.mountWidget(document.getElementById("site-controls"), window.regard);
-OpenRegard.mountWidget(
+OpenRegardDisplay.mountDisplayWidget(
+  document.getElementById("site-controls"),
+  window.regard,
+);
+OpenRegardDisplay.mountDisplayWidget(
   document.getElementById("site-controls-secondary"),
   window.regard,
   { icon: false },
@@ -16,4 +19,11 @@ copy.addEventListener("click", async () => {
   } catch {
     status.textContent = "Copy this command: npm install openregard";
   }
+});
+
+const framework = document.getElementById("quickstart-framework");
+framework.addEventListener("change", () => {
+  document.querySelectorAll("[data-quickstart-panel]").forEach((panel) => {
+    panel.hidden = panel.dataset.quickstartPanel !== framework.value;
+  });
 });

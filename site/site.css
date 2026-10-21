@@ -12,7 +12,6 @@
   color: var(--ink);
   background: var(--paper);
   font-family:
-    Inter,
     ui-sans-serif,
     system-ui,
     -apple-system,
@@ -109,10 +108,10 @@ button {
 }
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-  gap: clamp(2rem, 6vw, 6rem);
-  padding-block: 5.5rem;
-  align-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+  gap: clamp(2rem, 4vw, 4rem);
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
 }
 .eyebrow {
   font-size: 0.72rem;
@@ -131,16 +130,38 @@ button {
   vertical-align: middle;
 }
 h1 {
-  font-size: clamp(3rem, 5.8vw, 5.6rem);
-  line-height: 1.08;
+  font-size: clamp(2rem, 2rem + 1.2vw, 3.25rem);
+  line-height: 1.16;
   font-weight: 600;
-  letter-spacing: -0.065em;
-  margin-block: 1.4rem 1.6rem;
+  letter-spacing: -0.035em;
+  margin-block: 1rem 1.5rem;
 }
-h1 em {
-  font-family: Georgia, serif;
-  font-weight: 400;
-  letter-spacing: -0.045em;
+.hero-copy {
+  min-width: 0;
+}
+.hero-copy > .eyebrow {
+  margin-block: 0 1rem;
+}
+.hero h1 > span {
+  display: block;
+}
+.hero-subtitle {
+  font-size: 0.8em;
+  font-weight: 450;
+  margin-top: 0.25em;
+}
+.hero .intro {
+  font-size: 1rem;
+  max-width: 34rem;
+}
+.hero .actions {
+  margin-block: 1.5rem;
+}
+.hero .module-note {
+  margin-block: 0 0.6rem;
+}
+.hero .understated {
+  margin: 0;
 }
 h2 {
   font-size: clamp(2rem, 3.4vw, 3.25rem);
@@ -199,7 +220,8 @@ h3 {
   padding: clamp(1.25rem, 3vw, 2.5rem);
   border-radius: 1rem;
   border: 1px solid currentColor;
-  transform: rotate(1deg);
+  max-width: 34rem;
+  width: 100%;
 }
 .demo-top {
   display: flex;
@@ -210,15 +232,12 @@ h3 {
 .demo-top .eyebrow {
   margin: 0;
 }
-.demo-orbit {
-  font-size: 2.2rem;
-  line-height: 1;
-}
 .demo-card h2 {
-  font-family: Georgia, serif;
-  font-weight: 400;
-  font-size: 2.25rem;
-  letter-spacing: -0.03em;
+  font-family: inherit;
+  font-weight: 550;
+  font-size: 1.65rem;
+  letter-spacing: -0.025em;
+  margin-block: 1rem;
 }
 .demo-card p {
   font-size: 0.88rem;
@@ -606,7 +625,7 @@ h3 {
     padding-block: 2.5rem;
   }
   h1 {
-    font-size: clamp(2.6rem, 13vw, 4rem);
+    font-size: 2rem;
   }
   .feature-grid {
     grid-template-columns: 1fr;
@@ -868,4 +887,44 @@ p {
 
 :root[data-regard-profile="vision-contrast"] .docs-content .hljs * {
   color: inherit !important;
+}
+
+.snippet-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em;
+  font-size: 0.75rem;
+}
+.snippet-picker select {
+  max-width: 100%;
+  min-width: 0;
+  min-height: 2.75em;
+  font: inherit;
+  padding: 0.5em;
+  border: 1px solid currentColor;
+  border-radius: 0.3em;
+  color: var(--on-dark);
+  background: var(--code-paper);
+}
+.code-card .hljs {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+[data-quickstart-panel][hidden] {
+  display: none;
+}
+:root:is(
+    [data-regard-profile="strong"],
+    [data-regard-profile="vision-contrast"]
+  )
+  .code-card
+  .hljs
+  * {
+  color: inherit !important;
+}
+
+.demo-card .openregard-select:focus-visible {
+  outline-color: var(--on-dark);
 }

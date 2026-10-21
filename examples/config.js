@@ -51,5 +51,5 @@ window.regardConfig = {
     },
   ],
 };
-window.regard = OpenRegard.createRegard(window.regardConfig);
+window.regard = OpenRegardDisplay.createDisplay(window.regardConfig);
 window.stopRegard = window.regard.start();

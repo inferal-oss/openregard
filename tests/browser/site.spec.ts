@@ -95,3 +95,36 @@ test("publishes llms.txt and Markdown docs", async ({ request }) => {
   expect(docs.ok()).toBe(true);
   expect(await docs.text()).toContain("## Style the widget");
 });
+
+test("homepage switches between module-based vanilla and configurable React examples", async ({
+  page,
+}) => {
+  await page.goto("/.pages/");
+  const picker = page.getByRole("combobox", { name: "Example", exact: true });
+  await expect(page.locator('[data-quickstart-panel="vanilla"]')).toBeVisible();
+  await expect(page.locator('[data-quickstart-panel="vanilla"]')).toContainText(
+    "openregard/display",
+  );
+  await picker.selectOption("react");
+  await expect(page.locator('[data-quickstart-panel="react"]')).toBeVisible();
+  await expect(page.locator('[data-quickstart-panel="react"]')).toContainText(
+    "<DisplayWidget config={config} />",
+  );
+  await expect(page.locator('[data-quickstart-panel="vanilla"]')).toBeHidden();
+  await page
+    .getByRole("link", { name: "Presets", exact: true })
+    .first()
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Display presets", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "WCAG visual recipes", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", {
+      name: "WHATWG native HTML recipe",
+      exact: true,
+    }),
+  ).toBeVisible();
+});

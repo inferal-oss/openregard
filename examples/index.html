@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Vanilla HTML — Open Regard Display</title>
     <!-- Self-host synchronous scripts so the saved profile applies before paint. -->
-    <script src="../dist/browser.js"></script>
+    <script src="../dist/display.browser.js"></script>
     <script src="../dist/presets.browser.js"></script>
     <script src="./config.js"></script>
     <link rel="stylesheet" href="../dist/style.css" />
@@ -101,13 +101,21 @@
       <a href="https://github.com/inferal-oss/openregard">View the project ↗</a>
     </footer>
     <script>
-      OpenRegard.mountWidget(document.getElementById("controls"), regard, {
-        className: "demo-widget",
-      });
-      OpenRegard.mountWidget(document.getElementById("secondary"), regard, {
-        icon: false,
-        className: "demo-widget",
-      });
+      OpenRegardDisplay.mountDisplayWidget(
+        document.getElementById("controls"),
+        regard,
+        {
+          className: "demo-widget",
+        },
+      );
+      OpenRegardDisplay.mountDisplayWidget(
+        document.getElementById("secondary"),
+        regard,
+        {
+          icon: false,
+          className: "demo-widget",
+        },
+      );
       document.getElementById("reset").onclick = () => regard.reset();
     </script>
   </body>

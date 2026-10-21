@@ -1,6 +1,6 @@
 {
   "name": "openregard",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A modular accessibility toolkit. Display preferences: dependency-free core, native widgets, token presets and optional React bindings.",
   "type": "module",
   "license": "MIT",
@@ -45,7 +45,22 @@
       "types": "./dist/presets.d.ts",
       "import": "./dist/presets.js"
     },
-    "./presets/browser.js": "./dist/presets.browser.js"
+    "./presets/browser.js": "./dist/presets.browser.js",
+    "./display": {
+      "types": "./dist/display.d.ts",
+      "import": "./dist/display.js"
+    },
+    "./display/react": {
+      "types": "./dist/display-react.d.ts",
+      "import": "./dist/display-react.js"
+    },
+    "./display/presets": {
+      "types": "./dist/presets.d.ts",
+      "import": "./dist/presets.js"
+    },
+    "./display/style.css": "./dist/style.css",
+    "./display/browser.js": "./dist/display.browser.js",
+    "./display/presets/browser.js": "./dist/presets.browser.js"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

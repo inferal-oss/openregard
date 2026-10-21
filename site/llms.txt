@@ -10,7 +10,7 @@ Package: openregard (npm). Core has no runtime dependencies; React 18/19 is opti
 - [Plain-text documentation](https://openregard.org/docs/display.md): The same documentation as Markdown.
 - [Adoption contract](https://openregard.org/adoption/): Site integration responsibilities and migration guidance.
 - [Widget styling](https://openregard.org/docs/#style-the-widget): Shared public classes, className and --openregard-* theme variables; the CSS is optional.
-- [Standards and token presets](https://openregard.org/docs/#standards-and-token-presets): Optional wcagPresets and htmlPresets from openregard/presets. Numeric visual guidance comes from WCAG; WHATWG supplies native HTML semantics/rendering guidance. Presets do not establish conformance.
+- [Standards and token presets](https://openregard.org/presets/): Optional wcagPresets and htmlPresets from openregard/display/presets. Numeric visual guidance comes from WCAG; WHATWG supplies native HTML semantics/rendering guidance. Presets do not establish conformance.
 
 ## Runnable examples
 
@@ -28,6 +28,6 @@ Each example includes real syntax-highlighted source files. Run locally with: np
 
 ## Integration facts
 
-createRegard(config) validates and freezes configuration. mountWidget(container, regard, options) mounts a native select. openregard/react exports RegardWidget and useProfile. openregard/style.css provides optional low-specificity defaults. openregard/presets exports immutable visual and native-control token recipes. Classic scripts use OpenRegard and optional OpenRegardPresets globals.
+createDisplay(config) validates and freezes configuration. mountDisplayWidget(container, regard, options) mounts a native select. openregard/display/react exports DisplayWidget, DisplayProvider and useDisplayProfile. Configure a standalone widget with config, share configuration through DisplayProvider, or pass an existing controller as display. openregard/display/style.css provides optional low-specificity defaults. openregard/display/presets exports immutable visual and native-control token recipes. Classic scripts use OpenRegardDisplay and optional OpenRegardPresets globals.
 
 Profile IDs are application-owned; keep them stable. Display applies data-regard-profile by default and optional inline custom properties. The site's CSS must consume these tokens. Share one controller per root/attribute. start() acquires a lease; final cleanup restores the original root state. Storage is best effort; there is no automatic cross-subdomain synchronization. For first paint, load self-hosted core, optional presets and configuration synchronously in the head; reuse that controller in React. Installing the module does not establish accessibility conformance.

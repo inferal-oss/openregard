@@ -4,6 +4,14 @@ Open Regard is a **modular accessibility toolkit**. Use each module independentl
 
 <div class="docs-callout"><strong>You supply the profiles and CSS.</strong> Open Regard supplies the controller and native controls. Installing it does not establish accessibility conformance.</div>
 
+## Display module and imports
+
+`openregard/display` is the Display module: `createDisplay`, `mountDisplayWidget` and `validateDisplayConfig`. Its optional entries are `openregard/display/react`, `openregard/display/presets`, `openregard/display/style.css` and browser bundles. **Vision is a configurable profile, not a separate module.**
+
+The original root exports (`createRegard`, `mountWidget`, `RegardWidget` from `openregard/react`) remain compatible. Existing integrations can migrate imports and names without changing profile IDs or storage keys.
+
+For ready-to-compose WCAG and WHATWG recipes, see the dedicated [Display presets guide](../presets/).
+
 ## Quick start
 
 Install the package from [npm](https://www.npmjs.com/package/openregard):
@@ -15,10 +23,10 @@ npm install openregard
 Create one controller for your browser application and share it across controls:
 
 ```ts
-import { createRegard, mountWidget } from "openregard";
-import "openregard/style.css";
+import { createDisplay, mountDisplayWidget } from "openregard/display";
+import "openregard/display/style.css";
 
-const regard = createRegard({
+const regard = createDisplay({
   version: 1,
   defaultProfile: "original",
   storageKey: "my-site-view",
@@ -37,7 +45,7 @@ const regard = createRegard({
   ],
 });
 
-const widget = mountWidget(
+const widget = mountDisplayWidget(
   document.querySelector<HTMLElement>("#display-settings")!,
   regard,
 );
@@ -58,7 +66,7 @@ body {
 }
 ```
 
-A controller applies `data-regard-profile="roomy"` to the document root by default. Tokens are optional: you can instead write your own selectors using that attribute. Profile IDs have no built-in meaning. Optional token recipes are available separately from `openregard/presets`; they do not apply CSS until you compose them into profiles and consume their properties.
+A controller applies `data-regard-profile="roomy"` to the document root by default. Tokens are optional: you can instead write your own selectors using that attribute. Profile IDs have no built-in meaning. Optional token recipes are available separately from `openregard/display/presets`; they do not apply CSS until you compose them into profiles and consume their properties.
 
 ## Run the examples
 
@@ -103,15 +111,15 @@ interface DisplayConfig {
 
 IDs are case-sensitive, 1–64 ASCII letters, digits, underscores or hyphens, starting with a letter or digit. Keep them stable when translating labels. Tokens must use CSS custom-property names and nonempty string values. Configuration is trusted application code; the browser determines whether a CSS value is valid.
 
-`createRegard(config)` validates and freezes a copy of the configuration. `validateConfig(config)` is available separately when you want to validate at build time.
+`createDisplay(config)` validates and freezes a copy of the configuration. `validateDisplayConfig(config)` is available separately when you want to validate at build time.
 
 ## Use the native widget
 
-`mountWidget(container, regard, options?)` appends a widget to your container and returns its `element`, `select`, and `destroy()` method. Multiple widgets sharing a controller update together without replacing their selects or losing focus.
+`mountDisplayWidget(container, regard, options?)` appends a widget to your container and returns its `element`, `select`, and `destroy()` method. Multiple widgets sharing a controller update together without replacing their selects or losing focus.
 
 ```ts
-const first = mountWidget(headerSettings, regard);
-const second = mountWidget(footerSettings, regard, { icon: false });
+const first = mountDisplayWidget(headerSettings, regard);
+const second = mountDisplayWidget(footerSettings, regard, { icon: false });
 
 // When you remove those parts of the interface:
 first.destroy();
@@ -120,7 +128,7 @@ second.destroy();
 
 The visible label, accessible name, selected profile text and description come from your configuration. The eye is decorative. Hide it with `{ icon: false }` or provide an element factory through `icon: document => element`. A replacement icon must not contain interactive elements.
 
-Import `openregard/style.css` for the small, widget-only styles. They inherit the site's font, use platform control colors, preserve visible keyboard focus and add no animation. You can style `.openregard*` classes to fit your interface. Site-wide typography, layout and colors remain yours.
+Import `openregard/display/style.css` for the small, widget-only styles. They inherit the site's font, use platform control colors, preserve visible keyboard focus and add no animation. You can style `.openregard*` classes to fit your interface. Site-wide typography, layout and colors remain yours.
 
 ## Style the widget
 
@@ -129,11 +137,14 @@ Both bindings render ordinary, unshadowed DOM with the same public CSS classes. 
 Scope a theme with `className` in either binding:
 
 ```ts
-mountWidget(container, regard, { className: "footer-display", icon: false });
+mountDisplayWidget(container, regard, {
+  className: "footer-display",
+  icon: false,
+});
 ```
 
 ```tsx
-<RegardWidget regard={regard} className="footer-display" icon={false} />
+<DisplayWidget display={regard} className="footer-display" icon={false} />
 ```
 
 Load your stylesheet after the default stylesheet. Custom properties on a wrapper theme just that widget; values on an ancestor or root are inherited:
@@ -172,16 +183,18 @@ Load your stylesheet after the default stylesheet. Custom properties on a wrappe
 | `--openregard-focus-width`          | `2px`          |
 | `--openregard-description-size`     | `0.9em`        |
 
-Public hooks are `.openregard-widget` (outer wrapper), `.openregard` (label/layout), `.openregard-label`, `.openregard-select`, `.openregard-icon` and `.openregard-description`. Use them for layout as well as appearance. `mountWidget` also returns `element` and `select` for direct DOM integration. The examples use the same `demo-widget` theme for vanilla and React; inspect **demo.css** in their source viewer.
+Public hooks are `.openregard-widget` (outer wrapper), `.openregard` (label/layout), `.openregard-label`, `.openregard-select`, `.openregard-icon` and `.openregard-description`. Use them for layout as well as appearance. `mountDisplayWidget` also returns `element` and `select` for direct DOM integration. The examples use the same `demo-widget` theme for vanilla and React; inspect **demo.css** in their source viewer.
 
-Keep the native select, its accessible name, visible keyboard focus, wrapping selected description and browser forced-color behavior. Native option popup styling varies by platform. Avoid fixed heights, clipping enlarged labels, removing outlines or setting `forced-color-adjust: none`. The label and description are meaningful content, not decoration. For a custom control, subscribe to the controller (or use `useProfile` in React) and implement its accessibility behavior yourself.
+Keep the native select, its accessible name, visible keyboard focus, wrapping selected description and browser forced-color behavior. Native option popup styling varies by platform. Avoid fixed heights, clipping enlarged labels, removing outlines or setting `forced-color-adjust: none`. The label and description are meaningful content, not decoration. For a custom control, subscribe to the controller (or use `useDisplayProfile` in React) and implement its accessibility behavior yourself.
 
 ## Standards and token presets
 
-The optional entry `openregard/presets` offers **WCAG-informed visual recipes** and a **WHATWG-inspired native-control recipe**. Both are immutable token maps you can spread into `tokens`; importing them has no DOM side effects. They are starting points for site-owned profiles, not built-in profile IDs or a conformance guarantee.
+[Open the dedicated Display presets guide →](../presets/)
+
+The optional entry `openregard/display/presets` offers **WCAG-informed visual recipes** and a **WHATWG-inspired native-control recipe**. Both are immutable token maps you can spread into `tokens`; importing them has no DOM side effects. They are starting points for site-owned profiles, not built-in profile IDs or a conformance guarantee.
 
 ```ts
-import { wcagPresets, htmlPresets } from "openregard/presets";
+import { wcagPresets, htmlPresets } from "openregard/display/presets";
 
 const vision = {
   id: "vision",
@@ -197,7 +210,7 @@ const highContrast = {
   label: "Vision + High Contrast",
   tokens: { ...vision.tokens, ...wcagPresets.contrastLight },
 };
-// Include these in createRegard({ ..., profiles: [original, vision, highContrast] }).
+// Include these in createDisplay({ ..., profiles: [original, vision, highContrast] }).
 ```
 
 Your CSS connects each token to actual content:
@@ -235,6 +248,19 @@ select {
 }
 ```
 
+### Profiles in the live examples
+
+The website and examples compose these recipes into site-owned profiles:
+
+| Profile                | Composition                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------ |
+| Standard               | The site's default presentation; no token overrides.                                 |
+| Vision                 | `textSpacing` + `nativeControls` + 125% root font size.                              |
+| Vision + High Contrast | Vision + `contrastLight`, including paired colors and stronger borders.              |
+| Max Contrast           | `textSpacing` + `nativeControls` + 150% root font size and custom black/white pairs. |
+
+These profile names are library examples, not names defined by W3C or WHATWG. Copy and adapt them; the standards sources below explain which values informed the recipes.
+
 ### WCAG visual recipes
 
 | Recipe                      | Tokens and intended use                                                                                                             |
@@ -269,34 +295,94 @@ This is a library styling recipe inspired by [WHATWG's rendering guidance for se
 
 The library widget already uses a native label, select and options. If you build your own, wire its `change` event to `regard.setProfile(...)` and subscribe to keep its value synchronized. Preserve the [label association](https://html.spec.whatwg.org/multipage/forms.html#the-label-element), [select semantics](https://html.spec.whatwg.org/multipage/form-elements.html#the-select-element), keyboard interaction and focus. Use real links, headings, landmarks and labeled inputs around the widget. Tokens cannot repair missing semantics.
 
-For classic scripts, self-host `openregard/presets/browser.js` and load it synchronously **between** the core bundle and a configuration that uses presets. It exposes `OpenRegardPresets.wcagPresets` and `OpenRegardPresets.htmlPresets`. The three runnable examples demonstrate this setup.
+For classic scripts, self-host `openregard/display/presets/browser.js` and load it synchronously **between** the core bundle and a configuration that uses presets. It exposes `OpenRegardPresets.wcagPresets` and `OpenRegardPresets.htmlPresets`. The three runnable examples demonstrate this setup.
 
 ## React binding
 
-React is an optional peer dependency. The core and browser bundle do not import it.
+Import from `openregard/display/react`. React is optional; the Display core and browser bundle never import it.
+
+### Configure a standalone widget
+
+A single widget can create and manage its controller directly from configuration:
 
 ```tsx
-import { createRegard } from "openregard";
-import { RegardWidget } from "openregard/react";
-import "openregard/style.css";
+import { DisplayWidget } from "openregard/display/react";
+import "openregard/display/style.css";
 
-// Reuse the same instance; do not create one on every render.
-const regard = createRegard(config);
-
+const config = {
+  version: 1 as const,
+  defaultProfile: "standard",
+  storageKey: "my-site-view",
+  controlLabel: "Reading preferences",
+  profiles: [
+    { id: "standard", label: "Standard" },
+    { id: "vision", label: "Vision", tokens: { "--reading-size": "125%" } },
+  ],
+};
 export function Settings() {
-  return <RegardWidget regard={regard} />;
+  return <DisplayWidget config={config} className="my-display" />;
 }
 ```
 
-`RegardWidget` accepts `regard`, an optional decorative `icon`, and `className`. Pass `icon={false}` to hide the eye. `useProfile(regard)` is available when you need a custom React control; it subscribes with `useSyncExternalStore` and starts the controller after mounting.
+Your CSS must still consume the tokens. Keep configuration stable, for example at module scope in a browser application or memoized from props. A changed config object creates a new controller; cleanup releases the previous one and the new instance reads the saved preference after mounting. A standalone widget starts after mount, so it can show the default briefly.
 
-React StrictMode and multiple controls are supported. No generated label IDs depend on the surrounding provider tree. For a custom root, start the controller on that root before mounting React controls.
+### Share configuration across React controls
+
+Use one provider for multiple widgets and custom UI. Set `config` on the provider; its descendants inherit the controller:
+
+```tsx
+import {
+  DisplayProvider,
+  DisplayWidget,
+  useDisplayProfile,
+} from "openregard/display/react";
+
+function CurrentProfile() {
+  const profile = useDisplayProfile();
+  return <p>Selected profile: {profile}</p>;
+}
+function App() {
+  return (
+    <DisplayProvider config={config}>
+      <header>
+        <DisplayWidget />
+      </header>
+      <CurrentProfile />
+      <footer>
+        <DisplayWidget icon={false} />
+      </footer>
+    </DisplayProvider>
+  );
+}
+```
+
+Do not mount separate `config` widgets on the same root: each would try to own that root. A widget inside a provider inherits its configuration; passing `config` there throws a diagnostic error. `DisplayProvider` retains a lease even when no widgets are mounted.
+
+### Reuse an existing controller
+
+For a shared vanilla/React app or before-paint initialization, pass the existing controller:
+
+```tsx
+import { createDisplay } from "openregard/display";
+import { DisplayWidget, DisplayProvider } from "openregard/display/react";
+
+const display = createDisplay(config); // once per browser app / SSR request
+<DisplayWidget display={display} />;
+// Or share it throughout a subtree:
+<DisplayProvider display={display}>
+  <AppContent />
+</DisplayProvider>;
+```
+
+`DisplayWidget` accepts `config`, `display`, or an inherited provider, plus `className` and an optional decorative `icon`. Choose one source, not both props. `icon={false}` hides the eye. `useDisplayProfile(display?)` reads a provider or explicit controller with `useSyncExternalStore`. Both bindings share the same styling hooks.
+
+React StrictMode and multiple controls are supported. For a custom root, start an existing controller on that root before mounting. Server rendering uses a fresh controller per request and the configured default; use the existing head-created controller for first-paint hydration as described below.
 
 ## Before paint and static sites
 
 Importing modules and creating controllers is safe on the server: neither accesses window or document. Calling `start()` needs the browser.
 
-For a saved preference before content paints, self-host `dist/browser.js` and your configuration script. Load both synchronously in the head, before body content:
+For a saved preference before content paints, self-host `dist/display.browser.js` and your configuration script. Load both synchronously in the head, before body content:
 
 ```html
 <head>
@@ -308,7 +394,7 @@ For a saved preference before content paints, self-host `dist/browser.js` and yo
 
 ```js
 // display-config.js
-window.siteRegard = OpenRegard.createRegard({
+window.siteRegard = OpenRegardDisplay.createDisplay({
   version: 1,
   defaultProfile: "original",
   storageKey: "my-site-view",
@@ -321,7 +407,7 @@ window.siteRegard = OpenRegard.createRegard({
 window.stopSiteRegard = window.siteRegard.start();
 ```
 
-The browser bundle exposes the core API as `OpenRegard`. Mount controls after their containers exist, for example at DOMContentLoaded. Keep your head-created controller and reuse it throughout the page.
+The browser bundle exposes the core API as `OpenRegardDisplay`. Mount controls after their containers exist, for example at DOMContentLoaded. Keep your head-created controller and reuse it throughout the page.
 
 A `defer`, `async`, or module script does not provide the same first-paint guarantee. Self-host pinned assets, check your content security policy, and keep the default page usable when JavaScript is disabled.
 
@@ -333,13 +419,13 @@ For first-paint styling, run the synchronous head initialization above and pass 
 
 ```jsx
 import { hydrateRoot } from "react-dom/client";
-import { RegardWidget } from "openregard/react";
+import { DisplayWidget } from "openregard/display/react";
 
 // Browser entry, after the head script has created the controller.
-hydrateRoot(container, <RegardWidget regard={window.siteRegard} />);
+hydrateRoot(container, <DisplayWidget display={window.siteRegard} />);
 ```
 
-Do not create a second controller for the same root. Without a head script, `RegardWidget` starts after mounting and may show the default briefly. Your surrounding markup still needs to satisfy React's hydration rules. If the framework hydrates `<html>` itself, use its supported document strategy to keep root attributes and styles consistent with initialization; do not broadly suppress hydration errors.
+Do not create a second controller for the same root. Without a head script, `DisplayWidget` starts after mounting and may show the default briefly. Your surrounding markup still needs to satisfy React's hydration rules. If the framework hydrates `<html>` itself, use its supported document strategy to keep root attributes and styles consistent with initialization; do not broadly suppress hydration errors.
 
 ## Persistence and synchronization
 
@@ -358,9 +444,9 @@ Keep the same IDs, defaults and key across application and documentation builds.
 Every `start()` acquires a lease. Its returned function releases that lease once. The last release removes synchronization listeners and restores the original root attribute and configured inline token values, including priorities. Widgets acquire and release their own leases.
 
 ```ts
-const regard = createRegard(config);
+const regard = createDisplay(config);
 const stopPage = regard.start({ root: document.documentElement });
-const widget = mountWidget(settingsContainer, regard);
+const widget = mountDisplayWidget(settingsContainer, regard);
 
 // Keep your page lease while widgets mount and unmount.
 widget.destroy();

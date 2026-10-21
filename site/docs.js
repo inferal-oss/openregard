@@ -1,2 +1,2 @@
 const controls = document.getElementById("docs-controls");
-if (controls) OpenRegard.mountWidget(controls, window.regard);
+if (controls) OpenRegardDisplay.mountDisplayWidget(controls, window.regard);

@@ -33,11 +33,11 @@ npm install openregard
 ```
 
 ```js
-import { createRegard, mountWidget } from "openregard";
-import { wcagPresets } from "openregard/presets";
-import "openregard/style.css";
+import { createDisplay, mountDisplayWidget } from "openregard/display";
+import { wcagPresets } from "openregard/display/presets";
+import "openregard/display/style.css";
 
-const regard = createRegard({
+const config = {
   version: 1,
   defaultProfile: "standard",
   storageKey: "my-site-display",
@@ -53,9 +53,13 @@ const regard = createRegard({
       },
     },
   ],
-});
+};
+const regard = createDisplay(config);
 
-const widget = mountWidget(document.querySelector("#display-settings"), regard);
+const widget = mountDisplayWidget(
+  document.querySelector("#display-settings"),
+  regard,
+);
 // When removing the control: widget.destroy();
 ```
 
@@ -75,25 +79,34 @@ p {
 }
 ```
 
-Wire the same properties into authored heading and control styles as needed. Tokens are optional: profile IDs have no built-in meaning. Use `data-regard-profile` selectors if you prefer. The [preset guide](https://openregard.org/docs/#standards-and-token-presets) covers WCAG visual recipes and a WHATWG-inspired native-control recipe, their sources and limits. Presets do not establish accessibility conformance.
+Wire the same properties into authored heading and control styles as needed. Tokens are optional: profile IDs have no built-in meaning. Use `data-regard-profile` selectors if you prefer. The [preset guide](https://openregard.org/presets/) covers WCAG visual recipes and a WHATWG-inspired native-control recipe, their sources and limits. Presets do not establish accessibility conformance.
 
 ## React
 
 ```tsx
-import { RegardWidget } from "openregard/react";
+import { DisplayWidget, DisplayProvider } from "openregard/display/react";
 
-// Reuse the controller above; do not create it on each render.
-<RegardWidget regard={regard} className="my-display-widget" />;
+// Configure a single widget directly:
+<DisplayWidget config={config} className="my-display-widget" />;
+
+// Share configuration when you have multiple controls:
+<DisplayProvider config={config}>
+  <DisplayWidget />
+  <DisplayWidget icon={false} />
+</DisplayProvider>;
 ```
 
-React 18/19 is an optional peer. `useProfile(regard)` is available for custom UI. [React, SSR and hydration guide →](https://openregard.org/docs/#react-binding)
+Use your configuration object from the vanilla example. To share a prepaint or vanilla controller instead, pass `display={regard}`. React 18/19 is an optional peer. `useDisplayProfile(regard)` is available for custom UI. [React, SSR and hydration guide →](https://openregard.org/docs/#react-binding)
 
 ## Match your site's design
 
 Both widgets expose the same ordinary DOM, public CSS classes and theme properties. Pass `className` to either binding; the default stylesheet is optional and easy to override:
 
 ```js
-mountWidget(container, regard, { className: "my-display-widget", icon: false });
+mountDisplayWidget(container, regard, {
+  className: "my-display-widget",
+  icon: false,
+});
 ```
 
 ```css
@@ -108,6 +121,8 @@ mountWidget(container, regard, { className: "my-display-widget", icon: false });
 ```
 
 Keep visible focus, native control behavior and wrapping text. [All styling hooks, theme variables and examples →](https://openregard.org/docs/#style-the-widget)
+
+The original root API (`createRegard`, `mountWidget`, `openregard/react`) remains compatible. New integrations can use the explicit Display module imports above.
 
 ## Integration details
 
