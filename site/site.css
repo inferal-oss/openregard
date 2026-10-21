@@ -327,6 +327,39 @@ h3 {
   font-size: 0.9rem;
   color: var(--muted);
 }
+.adopter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: 1.5rem 3rem;
+  padding-block: 2.5rem;
+  margin-bottom: 4rem;
+  border-block: 1px solid var(--line);
+}
+.adopter h2 {
+  font-size: 2rem;
+  margin-block: 0.5rem 0;
+}
+.adopter h2 a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+.adopter-copy > p {
+  margin-block: 0 0.7rem;
+}
+.adopter-copy .adopter-detail {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 0;
+}
+@media (max-width: 600px) {
+  .adopter {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding-block: 2rem;
+  }
+}
 .installation {
   background: var(--regard-page-paper, #e7ecdf);
   border-block: 1px solid var(--line);
