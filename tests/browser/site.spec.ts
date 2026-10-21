@@ -128,3 +128,37 @@ test("homepage switches between module-based vanilla and configurable React exam
     }),
   ).toBeVisible();
 });
+
+test("custom control reuses the headless controller, syncs and preserves keyboard focus", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 900 });
+  await page.goto("/.pages/custom-widgets/");
+  const group = page
+    .locator("#custom-display-demo")
+    .getByRole("group", { name: "Reading and display preferences" });
+  const vision = group.getByRole("button", { name: "Vision", exact: true });
+  await vision.focus();
+  await page.keyboard.press("Enter");
+  await expect(vision).toHaveAttribute("aria-pressed", "true");
+  await expect(vision).toBeFocused();
+  await expect(page.getByRole("combobox")).toHaveValue("roomy");
+  await page.getByRole("combobox").selectOption("strong");
+  await expect(
+    group.getByRole("button", { name: "Max Contrast", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(vision).toHaveAttribute("aria-pressed", "false");
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  await page.reload();
+  await expect(page.getByRole("combobox")).toHaveValue("strong");
+  await expect(
+    group.getByRole("button", { name: "Max Contrast", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator(".docs-content")).toContainText(
+    "useDisplayProfile",
+  );
+});

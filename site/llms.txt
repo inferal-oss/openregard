@@ -12,6 +12,8 @@ Package: openregard (npm). Core has no runtime dependencies; React 18/19 is opti
 - [Widget styling](https://openregard.org/docs/#style-the-widget): Shared public classes, className and --openregard-* theme variables; the CSS is optional.
 - [Standards and token presets](https://openregard.org/presets/): Optional wcagPresets and htmlPresets from openregard/display/presets. Numeric visual guidance comes from WCAG; WHATWG supplies native HTML semantics/rendering guidance. Presets do not establish conformance.
 
+- [Custom widgets](https://openregard.org/custom-widgets/): A live custom button control with vanilla and React source. Bundled widgets are optional; reuse the headless controller and useDisplayProfile hook.
+
 ## Runnable examples
 
 - [Vanilla HTML](https://openregard.org/examples/): Two synchronized widgets, forms and paired surfaces.

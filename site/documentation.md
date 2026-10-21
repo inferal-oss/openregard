@@ -187,6 +187,50 @@ Public hooks are `.openregard-widget` (outer wrapper), `.openregard` (label/layo
 
 Keep the native select, its accessible name, visible keyboard focus, wrapping selected description and browser forced-color behavior. Native option popup styling varies by platform. Avoid fixed heights, clipping enlarged labels, removing outlines or setting `forced-color-adjust: none`. The label and description are meaningful content, not decoration. For a custom control, subscribe to the controller (or use `useDisplayProfile` in React) and implement its accessibility behavior yourself.
 
+## Build custom widgets
+
+The Display controller is **headless**. `mountDisplayWidget` and `DisplayWidget` are optional views over that controller; your application can supply its entire interface. No bundled widget CSS is required.
+
+[Try the live custom-control example and read its source →](../custom-widgets/)
+
+Reuse `createDisplay(config)` and its `setProfile`, `getSnapshot`, `subscribe` and `start` methods. Your custom control supplies markup and interaction; the controller still owns validation, CSS tokens, persistence, reset behavior and synchronization. A custom widget and a standard widget can share the same controller without an adapter.
+
+### Vanilla custom control
+
+This example creates a group of native toggle buttons. It reads labels from configuration, updates the pressed state without replacing focused elements, and releases its lease and subscription on destruction.
+
+<!-- OPENREGARD_CUSTOM_VANILLA -->
+
+Mount it after the container exists, using a controller shared with your app:
+
+```js
+import { createDisplay } from "openregard/display";
+const display = createDisplay(config);
+const widget = mountProfileButtons(container, display);
+// Later, when this UI is removed:
+widget.destroy();
+```
+
+When reusing a controller initialized before paint, pass that existing instance instead of creating another one. A page-level `display.start()` lease can retain preferences while all controls are temporarily unmounted.
+
+### React custom control
+
+Reuse `useDisplayProfile(display)` for the subscription, SSR snapshot and browser lease. The returned ID is reactive; use the same controller to change the selection. You do not need to render `DisplayWidget` or reimplement localStorage and storage events.
+
+<!-- OPENREGARD_CUSTOM_REACT -->
+
+Pass a stable controller created once per browser app or SSR request. If your app also uses a provider, give both the provider and custom controls that instance: `<DisplayProvider display={display}>`. The hook works independently of the standard widget and provider.
+
+### Style and interaction
+
+Your custom UI owns its styling. The live button example uses this CSS; it does not import or depend on `openregard/display/style.css`:
+
+<!-- OPENREGARD_CUSTOM_CSS -->
+
+Keep a visible group label and full choice names. Native buttons already support Tab, Enter and Space; `aria-pressed` exposes their state. A radio-group design instead needs radio semantics and its expected keyboard behavior. Preserve focus on updates, indicate selection with more than color, allow labels to wrap and check forced colors, narrow layouts and enlargement. Tokens cannot supply these semantics for custom markup.
+
+The live example shares its controller with the standard select above it. Switching either updates both, and selecting a profile still updates the page and other same-origin tabs.
+
 ## Standards and token presets
 
 [Open the dedicated Display presets guide →](../presets/)

@@ -98,6 +98,10 @@ import { DisplayWidget, DisplayProvider } from "openregard/display/react";
 
 Use your configuration object from the vanilla example. To share a prepaint or vanilla controller instead, pass `display={regard}`. React 18/19 is an optional peer. `useDisplayProfile(regard)` is available for custom UI. [React, SSR and hydration guide →](https://openregard.org/docs/#react-binding)
 
+## Build your own control
+
+The controller is headless; the bundled widgets are optional. Reuse `getSnapshot`, `subscribe`, `setProfile` and `start` for any custom UI, or `useDisplayProfile(display)` in React. Persistence, tokens and synchronization stay in the module. [Live custom control with vanilla and React source →](https://openregard.org/custom-widgets/)
+
 ## Match your site's design
 
 Both widgets expose the same ordinary DOM, public CSS classes and theme properties. Pass `className` to either binding; the default stylesheet is optional and easy to override:

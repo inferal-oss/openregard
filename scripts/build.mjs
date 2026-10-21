@@ -1,5 +1,6 @@
 import { build } from "esbuild";
-import { mkdir, copyFile, rm, readFile, writeFile } from "node:fs/promises";
+import { readDocumentation } from "./documentation.mjs";
+import { mkdir, copyFile, rm, writeFile } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 await rm("dist", { recursive: true, force: true });
 await mkdir("dist");
@@ -49,7 +50,7 @@ await build({
 await copyFile("src/style.css", "dist/style.css");
 await writeFile(
   "dist/documentation.md",
-  (await readFile("site/documentation.md", "utf8"))
+  (await readDocumentation())
     .replaceAll("(../adoption/)", "(../docs/adoption-contract.md)")
     .replaceAll("(../presets/)", "(https://openregard.org/presets/)"),
 );

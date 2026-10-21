@@ -1,5 +1,6 @@
 import { mkdir, cp, readFile, writeFile, rm } from "node:fs/promises";
 import { Marked } from "marked";
+import { readDocumentation } from "./documentation.mjs";
 import { createHash } from "node:crypto";
 import { highlight, escape } from "./highlight.mjs";
 const out = ".pages";
@@ -12,6 +13,9 @@ const assetVersion = createHash("sha256")
           "site/site.css",
           "site/site.js",
           "site/display-config.js",
+          "site/custom-widget.js",
+          "site/custom-widget.css",
+          "site/snippets/custom-react.tsx",
           "site/documentation.md",
           "package.json",
         ].map((file) => readFile(file, "utf8")),
@@ -63,6 +67,7 @@ for (const [route, title, file, isDocs] of [
   ["adoption", "Adoption contract", "docs/adoption-contract.md", false],
   ["docs", "Documentation", "site/documentation.md", true],
   ["presets", "Display presets", "site/documentation.md", true],
+  ["custom-widgets", "Custom display widgets", "site/documentation.md", true],
 ]) {
   const headings = [];
   let used = new Map();
@@ -89,7 +94,10 @@ for (const [route, title, file, isDocs] of [
       },
     },
   });
-  let source = await readFile(file, "utf8");
+  let source =
+    file === "site/documentation.md"
+      ? await readDocumentation()
+      : await readFile(file, "utf8");
   if (route === "presets")
     source = source
       .slice(
@@ -99,23 +107,61 @@ for (const [route, title, file, isDocs] of [
       .replace("## Standards and token presets", "# Display presets")
       .replace("[Open the dedicated Display presets guide →](../presets/)", "")
       .replaceAll("### ", "## ");
+  if (route === "custom-widgets")
+    source = source
+      .slice(
+        source.indexOf("## Build custom widgets"),
+        source.indexOf("## Standards and token presets"),
+      )
+      .replace("## Build custom widgets", "# Custom Display widgets")
+      .replace(
+        "[Try the live custom-control example and read its source →](../custom-widgets/)",
+        '<div class="docs-callout"><strong>Live custom control</strong><p>These buttons share a controller with the standard select above. Change either one to see both update.</p><div id="custom-display-demo"></div></div>',
+      )
+      .replaceAll("### ", "## ");
+  if (route === "docs")
+    source = source.replace(
+      /## Build custom widgets[\s\S]+?(?=## Standards and token presets)/,
+      `## Build custom widgets
+
+The Display controller is headless; both bundled widgets are optional. Build your own UI using \`getSnapshot\`, \`subscribe\`, \`setProfile\` and \`start\`. In React, \`useDisplayProfile(display)\` reuses the subscription, server snapshot and lifecycle handling.
+
+[Try the custom button control and read the vanilla/React implementations →](../custom-widgets/)
+
+`,
+    );
   const content = markdown.parse(source);
   const controls = '<div class="docs-controls" id="docs-controls"></div>';
   const main = isDocs
     ? `<main id="main" class="shell docs-layout"><aside class="docs-sidebar"><a class="docs-version" href="https://www.npmjs.com/package/openregard">openregard / npm ↗</a><details open><summary>On this page</summary><nav aria-label="Documentation sections">${headings.map(({ id, label }) => `<a href="#${id}">${escape(label)}</a>`).join("")}</nav></details></aside><article class="docs-content">${controls}${content}</article></main>`
     : `<main id="main" class="article docs-content shell">${controls}${content}</main>`;
   await mkdir(`${out}/${route}`, { recursive: true });
+  const routeHead =
+    route === "custom-widgets"
+      ? head(title).replace(
+          "</head>",
+          '<link rel="stylesheet" href="../custom-widget.css"></head>',
+        )
+      : head(title);
+  const customScript =
+    route === "custom-widgets"
+      ? '<script src="../custom-widget.js" defer></script>'
+      : "";
   await writeFile(
     `${out}/${route}/index.html`,
     versionAssets(
-      `${head(title)}<body><a class="skip" href="#main">Skip to content</a>${header}${main}${footer}<script src="../docs.js" defer></script></body></html>`,
+      `${routeHead}<body><a class="skip" href="#main">Skip to content</a>${header}${main}${footer}${customScript}<script src="../docs.js" defer></script></body></html>`,
     ),
   );
 }
-const plainDocs = (await readFile("site/documentation.md", "utf8"))
+const plainDocs = (await readDocumentation())
   .replaceAll("(../examples/", "(https://openregard.org/examples/")
   .replaceAll("(../adoption/)", "(https://openregard.org/adoption/)")
-  .replaceAll("(../presets/)", "(https://openregard.org/presets/)");
+  .replaceAll("(../presets/)", "(https://openregard.org/presets/)")
+  .replaceAll(
+    "(../custom-widgets/)",
+    "(https://openregard.org/custom-widgets/)",
+  );
 await writeFile(`${out}/docs/display.md`, plainDocs);
 for (const page of ["index.html", "docs.html", "react.html"]) {
   const file = `${out}/examples/${page}`;

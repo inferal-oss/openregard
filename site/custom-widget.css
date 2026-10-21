@@ -1,0 +1,54 @@
+.custom-display {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--regard-border-color, currentColor);
+  border-radius: 0.5rem;
+  color: inherit;
+}
+.custom-display legend {
+  padding-inline: 0.4em;
+  font-weight: 600;
+}
+.custom-display-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.custom-display button {
+  font: inherit;
+  padding: 0.65em 0.9em;
+  min-block-size: 2.75em;
+  max-inline-size: 100%;
+  overflow-wrap: anywhere;
+  border: 1px solid currentColor;
+  border-radius: 0.35rem;
+  color: var(--ink, CanvasText);
+  background: var(--paper, Canvas);
+  cursor: pointer;
+}
+.custom-display button[aria-pressed="true"] {
+  color: var(--paper, Canvas);
+  background: var(--ink, CanvasText);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+.custom-display button:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}
+.custom-display p {
+  margin-block: 1rem 0;
+  font-size: 0.85em;
+}
+@media (forced-colors: active) {
+  .custom-display button {
+    color: ButtonText;
+    background: ButtonFace;
+  }
+  .custom-display button[aria-pressed="true"] {
+    border: 3px double ButtonText;
+    color: ButtonText;
+    background: ButtonFace;
+  }
+}
