@@ -9,6 +9,12 @@ npm install openregard
 
 No runtime dependencies in the core. ESM, public TypeScript types, standalone browser bundle, widget CSS, optional React 18/19 binding. MIT licensed. Originally extracted from Startup Tier.
 
+## Project website
+
+The GitHub Pages website uses Open Regard itself and includes all three live demos.
+From a source checkout, build it with `npm run build:site`, then run `npm run site` and open
+http://127.0.0.1:4399/. The website sponsorship credit is separate from the reusable widget.
+
 ## Run the included demo
 
 The published package includes a runnable demo with vanilla widgets, a separate static documentation page and a React example. No bundler or checkout required:

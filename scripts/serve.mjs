@@ -5,7 +5,7 @@ const root = process.cwd();
 createServer(async (req, res) => {
   const pathname = new URL(req.url, "http://localhost").pathname;
   const path = resolve(root, "." + pathname);
-  if (!path.startsWith(root + "/")) {
+  if (path !== root && !path.startsWith(root + "/")) {
     res.writeHead(403).end();
     return;
   }
@@ -15,9 +15,13 @@ createServer(async (req, res) => {
     );
     res.setHeader(
       "Content-Type",
-      { ".html": "text/html", ".js": "text/javascript", ".css": "text/css" }[
-        extname(pathname.endsWith("/") ? "index.html" : path)
-      ] ?? "application/octet-stream",
+      {
+        ".html": "text/html",
+        ".js": "text/javascript",
+        ".css": "text/css",
+        ".svg": "image/svg+xml",
+      }[extname(pathname.endsWith("/") ? "index.html" : path)] ??
+        "application/octet-stream",
     );
     res.end(body);
   } catch {

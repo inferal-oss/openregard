@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Give people a view that works for them. Open Regard is a small, configurable display-preferences widget for websites, apps and documentation."
+    />
+    <meta name="theme-color" content="#f3f4ed" />
+    <title>Open Regard — a view on your terms</title>
+    <script src="./dist/browser.js"></script>
+    <script src="./examples/config.js"></script>
+    <link rel="stylesheet" href="./dist/style.css" />
+    <link rel="stylesheet" href="./site.css" />
+    <link rel="icon" href="./assets/mark.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header shell">
+      <a class="brand" href="./" aria-label="Open Regard home"
+        ><img src="./assets/mark.svg" width="34" height="34" alt="" /><span
+          >open regard<span class="brand-period">.</span></span
+        ></a
+      >
+      <nav aria-label="Main">
+        <a href="#how-it-works">How it works</a
+        ><a href="#get-started">Get started</a
+        ><a href="https://github.com/inferal-oss/openregard"
+          >GitHub <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="status-dot" aria-hidden="true"></span>Open source. Open
+            to different ways of seeing.
+          </p>
+          <h1 id="hero-title">
+            A different view.<br /><em>On your terms.</em>
+          </h1>
+          <p class="intro">
+            Give people a way to read your site that works for them. A small
+            display-preferences widget. Profiles you define. A choice that stays
+            with them.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="#get-started"
+              >Make room for choice <span aria-hidden="true">↗</span></a
+            ><a class="text-link" href="#try-it"
+              >Try the live demo <span aria-hidden="true">↓</span></a
+            >
+          </div>
+          <p class="understated">
+            TypeScript core · Native controls · Optional React · MIT
+          </p>
+        </div>
+        <div class="demo-card" id="try-it">
+          <div class="demo-top">
+            <span class="eyebrow">This is the demo</span
+            ><span class="demo-orbit" aria-hidden="true">◉</span>
+          </div>
+          <h2>Your view.<br />Starting right here.</h2>
+          <p>
+            This website uses Open Regard. Change the profile below and the
+            whole page follows.
+          </p>
+          <div id="site-controls"></div>
+          <div class="demo-rule"></div>
+          <p class="demo-note">
+            Try a larger view. Follow a link to the docs. Your preference comes
+            along.
+          </p>
+          <button class="reset" id="reset-preference" type="button">
+            Reset to the original view <span aria-hidden="true">↺</span>
+          </button>
+        </div>
+      </section>
+      <div class="principle-bar">
+        <div class="shell">
+          <p>People choose the view.</p>
+          <p>You make room for it.</p>
+          <span aria-hidden="true">↘</span>
+        </div>
+      </div>
+      <section
+        class="section shell"
+        id="how-it-works"
+        aria-labelledby="how-title"
+      >
+        <div class="section-heading">
+          <p class="eyebrow">Small by design</p>
+          <h2 id="how-title">Your profiles.<br />A shared preference.</h2>
+          <p>
+            No preset profiles. No imposed palette. Just the tools to offer a
+            thoughtful choice.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <span class="feature-number">01 / DEFINE</span>
+            <h3>Make it yours.</h3>
+            <p>
+              Name your profiles, translate the labels, choose the order. Use
+              your own CSS hooks or pass CSS custom properties. Every profile is
+              configurable.
+            </p>
+          </article>
+          <article>
+            <span class="feature-number">02 / REMEMBER</span>
+            <h3>Carry it along.</h3>
+            <p>
+              Keep controls, pages and same-origin tabs in sync. Include the app
+              and the docs. If storage is unavailable, the current page still
+              works.
+            </p>
+          </article>
+          <article>
+            <span class="feature-number">03 / RESPECT</span>
+            <h3>Keep it native.</h3>
+            <p>
+              A real select. A clear label. Visible keyboard focus. A
+              framework-independent core, with React there when you want it.
+            </p>
+          </article>
+        </div>
+      </section>
+      <section
+        class="installation section"
+        id="get-started"
+        aria-labelledby="install-title"
+      >
+        <div class="shell install-grid">
+          <div>
+            <p class="eyebrow">A small addition</p>
+            <h2 id="install-title">One widget.<br />Your whole site.</h2>
+            <p>
+              Start with the core and the native widget. Keep your typography,
+              layout and palettes in your own CSS.
+            </p>
+            <div class="command">
+              <code>npm install openregard</code
+              ><button
+                type="button"
+                id="copy-install"
+                aria-label="Copy install command"
+              >
+                Copy
+              </button>
+            </div>
+            <span class="copy-status" id="copy-status" role="status"></span>
+            <p>
+              <a
+                class="text-link"
+                href="https://github.com/inferal-oss/openregard#readme"
+                >Read the full documentation
+                <span aria-hidden="true">↗</span></a
+              >
+            </p>
+          </div>
+          <div class="code-card">
+            <div class="code-heading">
+              <span>your-site.js</span><span>Vanilla / TypeScript</span>
+            </div>
+            <pre><code><span class="code-purple">import</span> { createRegard, mountWidget }
+  <span class="code-purple">from</span> <span class="code-green">'openregard'</span>;
+
+<span class="code-purple">const</span> regard = createRegard({
+  version: <span class="code-green">1</span>,
+  defaultProfile: <span class="code-green">'original'</span>,
+  storageKey: <span class="code-green">'my-site-view'</span>,
+  controlLabel: <span class="code-green">'Choose your view'</span>,
+  profiles: [
+    { id: <span class="code-green">'original'</span>, label: <span class="code-green">'Original'</span> },
+    { id: <span class="code-green">'roomy'</span>, label: <span class="code-green">'Room to read'</span>,
+      tokens: { <span class="code-green">'--reading-size'</span>: <span class="code-green">'125%'</span> } }
+  ]
+});
+
+mountWidget(container, regard);</code></pre>
+            <p class="code-caption">
+              Your CSS uses <code>var(--reading-size, 100%)</code>. Open Regard
+              handles the preference.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="section shell examples" aria-labelledby="examples-title">
+        <div class="section-heading">
+          <p class="eyebrow">Take a closer look</p>
+          <h2 id="examples-title">Try it in context.</h2>
+          <p>These runnable examples ship in the npm package, too.</p>
+        </div>
+        <div class="example-grid">
+          <a class="example" href="./examples/"
+            ><span class="example-icon" aria-hidden="true">&lt;/&gt;</span>
+            <h3>Vanilla website <span aria-hidden="true">↗</span></h3>
+            <p>
+              Two controls. One preference. Light and dark surfaces, forms and
+              flexible cards.
+            </p></a
+          ><a class="example" href="./examples/docs.html"
+            ><span class="example-icon" aria-hidden="true">¶</span>
+            <h3>Static documentation <span aria-hidden="true">↗</span></h3>
+            <p>
+              A separate page that picks up your saved view before the content
+              is painted.
+            </p></a
+          ><a class="example" href="./examples/react.html"
+            ><span class="example-icon" aria-hidden="true">{ }</span>
+            <h3>React binding <span aria-hidden="true">↗</span></h3>
+            <p>
+              React and vanilla widgets sharing the same small controller.
+            </p></a
+          >
+        </div>
+        <div class="run-demo">
+          <span>Run them locally</span
+          ><code>npx --package=openregard openregard-demo</code>
+        </div>
+      </section>
+      <section
+        class="responsibility section shell"
+        aria-labelledby="contract-title"
+      >
+        <div class="contract-number" aria-hidden="true">↗</div>
+        <div>
+          <p class="eyebrow">A preference is a beginning</p>
+          <h2 id="contract-title">
+            The choice is theirs.<br />The care is ours.
+          </h2>
+          <p>
+            Installing a widget does not make a site accessible. Your profiles
+            need room to reflow, readable color pairs, usable navigation and
+            respect for browser preferences.
+          </p>
+          <a class="text-link" href="./adoption/"
+            >Read the adoption contract <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+      <section class="closing shell">
+        <div>
+          <p class="eyebrow">Same page. Same preference.</p>
+          <h2>A little more room<br />can go a long way.</h2>
+        </div>
+        <div id="site-controls-secondary"></div>
+      </section>
+    </main>
+    <footer class="site-footer shell">
+      <div class="footer-top">
+        <a class="brand" href="./"
+          ><img src="./assets/mark.svg" width="28" height="28" alt="" /><span
+            >open regard.</span
+          ></a
+        >
+        <p>A small, open-source space<br />for different ways of seeing.</p>
+        <nav aria-label="Footer">
+          <a href="https://github.com/inferal-oss/openregard">Source code</a
+          ><a href="https://www.npmjs.com/package/openregard">npm package</a
+          ><a href="./adoption/">Adoption contract</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-sponsor">
+          Sponsored by
+          <a href="https://inferal.com/"
+            ><img
+              src="./assets/inferal-mark.svg"
+              width="12"
+              height="14"
+              alt=""
+            />Inferal</a
+          >
+        </p>
+        <p>
+          MIT licensed <span aria-hidden="true">·</span> Built for the open web.
+        </p>
+      </div>
+    </footer>
+    <script src="./site.js" defer></script>
+  </body>
+</html>

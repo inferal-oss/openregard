@@ -6,6 +6,7 @@
   line-height: var(--reading-leading, 1.6);
 }
 body {
+  overflow-wrap: anywhere;
   max-width: 64rem;
   margin: auto;
   padding: clamp(0.75rem, 4vw, 3rem);
