@@ -43,13 +43,10 @@ for (const path of [
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
-    await expect(
-      page
-        .getByText("Larger type with stronger contrast and generous spacing", {
-          exact: false,
-        })
-        .last(),
-    ).toBeVisible();
+    await expect(page.locator(".openregard-description").first()).toContainText(
+      "Larger type with stronger contrast and generous spacing",
+    );
+    await expect(page.locator(".openregard-description").first()).toBeVisible();
     // Additional browser font enlargement on top of the profile.
     await page.addStyleTag({ content: ":root {font-size:200% !important}" });
     expect(

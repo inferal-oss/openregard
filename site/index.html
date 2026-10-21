@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Give people a view that works for them. Open Regard is a small, configurable display-preferences widget for websites, apps and documentation."
+      content="A configurable display-preferences widget for websites, applications and documentation. Define profiles, apply your styles, and keep selections in sync."
     />
     <meta name="theme-color" content="#f3f4ed" />
-    <title>Open Regard — a view on your terms</title>
+    <title>Open Regard — configurable display preferences</title>
     <script src="./dist/browser.js"></script>
     <script src="./examples/config.js"></script>
     <link rel="stylesheet" href="./dist/style.css" />
@@ -24,7 +24,10 @@
         ></a
       >
       <nav aria-label="Main">
-        <a href="#how-it-works">How it works</a
+        <a href="./docs/">Documentation</a
+        ><a href="https://www.npmjs.com/package/openregard"
+          >npm <span aria-hidden="true">↗</span></a
+        ><a href="#how-it-works">How it works</a
         ><a href="#get-started">Get started</a
         ><a href="https://github.com/inferal-oss/openregard"
           >GitHub <span aria-hidden="true">↗</span></a
@@ -34,25 +37,26 @@
     <main id="main">
       <section class="hero shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">
-            <span class="status-dot" aria-hidden="true"></span>Open source. Open
-            to different ways of seeing.
-          </p>
+          <p class="eyebrow">Open-source accessibility tools</p>
           <h1 id="hero-title">
-            A different view.<br /><em>On your terms.</em>
+            Display settings.<br /><em>That stay in sync.</em>
           </h1>
           <p class="intro">
-            Give people a way to read your site that works for them. A small
-            display-preferences widget. Profiles you define. A choice that stays
-            with them.
+            A configurable display-preferences widget for websites, applications
+            and docs. Define profiles, apply your own styles, and remember the
+            selection.
           </p>
           <div class="actions">
             <a class="button primary" href="#get-started"
-              >Make room for choice <span aria-hidden="true">↗</span></a
+              >Install Open Regard <span aria-hidden="true">↗</span></a
             ><a class="text-link" href="#try-it"
-              >Try the live demo <span aria-hidden="true">↓</span></a
+              >Try the demo <span aria-hidden="true">↓</span></a
             >
           </div>
+          <p class="module-note">
+            Display preferences is the first module in Open Regard, a project
+            for small accessibility tools.
+          </p>
           <p class="understated">
             TypeScript core · Native controls · Optional React · MIT
           </p>
@@ -62,7 +66,7 @@
             <span class="eyebrow">This is the demo</span
             ><span class="demo-orbit" aria-hidden="true">◉</span>
           </div>
-          <h2>Your view.<br />Starting right here.</h2>
+          <h2>Try it on<br />this website.</h2>
           <p>
             This website uses Open Regard. Change the profile below and the
             whole page follows.
@@ -80,9 +84,8 @@
       </section>
       <div class="principle-bar">
         <div class="shell">
-          <p>People choose the view.</p>
-          <p>You make room for it.</p>
-          <span aria-hidden="true">↘</span>
+          <p>Configurable profiles.</p>
+          <p>Shared across pages and tabs.</p>
         </div>
       </div>
       <section
@@ -91,17 +94,17 @@
         aria-labelledby="how-title"
       >
         <div class="section-heading">
-          <p class="eyebrow">Small by design</p>
-          <h2 id="how-title">Your profiles.<br />A shared preference.</h2>
+          <p class="eyebrow">Module 01 / Display preferences</p>
+          <h2 id="how-title">Define profiles.<br />Share the selection.</h2>
           <p>
-            No preset profiles. No imposed palette. Just the tools to offer a
-            thoughtful choice.
+            Supply your profile names, descriptions and CSS. The controller
+            handles selection, persistence and synchronization.
           </p>
         </div>
         <div class="feature-grid">
           <article>
             <span class="feature-number">01 / DEFINE</span>
-            <h3>Make it yours.</h3>
+            <h3>Site-owned profiles.</h3>
             <p>
               Name your profiles, translate the labels, choose the order. Use
               your own CSS hooks or pass CSS custom properties. Every profile is
@@ -110,7 +113,7 @@
           </article>
           <article>
             <span class="feature-number">02 / REMEMBER</span>
-            <h3>Carry it along.</h3>
+            <h3>Persistent selection.</h3>
             <p>
               Keep controls, pages and same-origin tabs in sync. Include the app
               and the docs. If storage is unavailable, the current page still
@@ -119,7 +122,7 @@
           </article>
           <article>
             <span class="feature-number">03 / RESPECT</span>
-            <h3>Keep it native.</h3>
+            <h3>Native controls.</h3>
             <p>
               A real select. A clear label. Visible keyboard focus. A
               framework-independent core, with React there when you want it.
@@ -135,7 +138,9 @@
         <div class="shell install-grid">
           <div>
             <p class="eyebrow">A small addition</p>
-            <h2 id="install-title">One widget.<br />Your whole site.</h2>
+            <h2 id="install-title">
+              Install the widget.<br />Keep your styles.
+            </h2>
             <p>
               Start with the core and the native widget. Keep your typography,
               layout and palettes in your own CSS.
@@ -152,11 +157,8 @@
             </div>
             <span class="copy-status" id="copy-status" role="status"></span>
             <p>
-              <a
-                class="text-link"
-                href="https://github.com/inferal-oss/openregard#readme"
-                >Read the full documentation
-                <span aria-hidden="true">↗</span></a
+              <a class="text-link" href="./docs/"
+                >Read the documentation <span aria-hidden="true">↗</span></a
               >
             </p>
           </div>
@@ -225,16 +227,13 @@ mountWidget(container, regard);</code></pre>
         class="responsibility section shell"
         aria-labelledby="contract-title"
       >
-        <div class="contract-number" aria-hidden="true">↗</div>
         <div>
-          <p class="eyebrow">A preference is a beginning</p>
-          <h2 id="contract-title">
-            The choice is theirs.<br />The care is ours.
-          </h2>
+          <p class="eyebrow">Adoption contract</p>
+          <h2 id="contract-title">Style and test each profile.</h2>
           <p>
-            Installing a widget does not make a site accessible. Your profiles
-            need room to reflow, readable color pairs, usable navigation and
-            respect for browser preferences.
+            The widget manages selection and persistence. Your CSS must support
+            reflow, readable color pairs, usable navigation and browser
+            preferences.
           </p>
           <a class="text-link" href="./adoption/"
             >Read the adoption contract <span aria-hidden="true">↗</span></a
@@ -244,7 +243,7 @@ mountWidget(container, regard);</code></pre>
       <section class="closing shell">
         <div>
           <p class="eyebrow">Same page. Same preference.</p>
-          <h2>A little more room<br />can go a long way.</h2>
+          <h2>Try a second control.</h2>
         </div>
         <div id="site-controls-secondary"></div>
       </section>
@@ -256,8 +255,12 @@ mountWidget(container, regard);</code></pre>
             >open regard.</span
           ></a
         >
-        <p>A small, open-source space<br />for different ways of seeing.</p>
+        <p>
+          Configurable accessibility tools.<br />Display preferences is the
+          first module.
+        </p>
         <nav aria-label="Footer">
+          <a href="./docs/">Documentation</a>
           <a href="https://github.com/inferal-oss/openregard">Source code</a
           ><a href="https://www.npmjs.com/package/openregard">npm package</a
           ><a href="./adoption/">Adoption contract</a>

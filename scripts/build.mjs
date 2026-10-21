@@ -24,3 +24,4 @@ await build({
 });
 await copyFile("src/style.css", "dist/style.css");
 await import("./build-demo.mjs");
+await import("./build-examples.mjs");

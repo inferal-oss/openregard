@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { RegardWidget } from "../src/react.js";
-import type { Regard } from "../src/index.js";
+import { RegardWidget } from "openregard/react";
+import type { Regard } from "openregard";
 const regard = (window as unknown as { regard: Regard }).regard;
 createRoot(document.getElementById("react-controls")!).render(
   <StrictMode>

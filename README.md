@@ -1,6 +1,6 @@
 # Open Regard
 
-Configurable display preferences for websites, applications and static documentation.
+Open-source tools for accessibility. This package provides the first module: configurable display preferences for websites, applications and static documentation.
 A small TypeScript controller remembers a profile, applies a CSS hook and optional custom properties, and synchronizes native controls. You own the profiles and the styles that honor them.
 
 ```sh
@@ -11,13 +11,13 @@ No runtime dependencies in the core. ESM, public TypeScript types, standalone br
 
 ## Project website
 
-The GitHub Pages website uses Open Regard itself and includes all three live demos.
+The [project website](https://openregard.org) uses Open Regard itself and includes [formatted documentation](https://openregard.org/docs/) and all three live demos.
 From a source checkout, build it with `npm run build:site`, then run `npm run site` and open
 http://127.0.0.1:4399/. The website sponsorship credit is separate from the reusable widget.
 
 ## Run the included demo
 
-The published package includes a runnable demo with vanilla widgets, a separate static documentation page and a React example. No bundler or checkout required:
+The published package includes a runnable demo with vanilla widgets, a separate static documentation page and a React example, each with a syntax-highlighted source viewer. No bundler or checkout required:
 
 ```sh
 npx --package=openregard openregard-demo

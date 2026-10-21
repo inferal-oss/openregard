@@ -64,10 +64,19 @@ assert.ok(readFileSync(import.meta.resolve('openregard/style.css').replace('file
     "dist/browser.js",
     "dist/react-demo.js",
     "dist/style.css",
+    "dist/source-viewer.js",
+    "dist/source-viewer.css",
+    "dist/highlight.css",
   ]) {
     const response = await fetch("http://127.0.0.1:4398/" + path);
     assert.equal(response.status, 200, path);
-    assert.ok((await response.text()).length > 0);
+    const body = await response.text();
+    assert.ok(body.length > 0);
+    if (path.startsWith("examples/"))
+      assert.ok(
+        body.includes("data-source-viewer"),
+        `${path} must ship the source viewer`,
+      );
   }
   run(["install", "--ignore-scripts", "react@19", "react-dom@19"]);
   await writeFile(

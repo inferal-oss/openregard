@@ -437,11 +437,7 @@ h3 {
 .responsibility > div:last-child {
   max-width: 36rem;
 }
-.contract-number {
-  font-family: Georgia, serif;
-  font-size: 8rem;
-  line-height: 1.2;
-}
+
 .responsibility p:not(.eyebrow) {
   color: var(--muted);
 }
@@ -584,9 +580,7 @@ h3 {
     grid-template-columns: 4rem minmax(0, 1fr);
     gap: 1.5rem;
   }
-  .contract-number {
-    font-size: 4rem;
-  }
+
   .closing {
     padding: 2rem;
   }
@@ -625,9 +619,7 @@ h3 {
     grid-template-columns: 1fr;
     gap: 0;
   }
-  .contract-number {
-    font-size: 3rem;
-  }
+
   .closing {
     padding: 1.2rem;
     margin-bottom: 3rem;
@@ -663,4 +655,178 @@ h3 {
   *::after {
     scroll-behavior: auto !important;
   }
+}
+.module-note {
+  max-width: 30rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+  margin-block: 1.7rem 0.5rem;
+}
+.docs-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-block: 3rem 5rem;
+}
+.docs-sidebar {
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+}
+.docs-sidebar summary {
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-block: 0.5rem;
+}
+.docs-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-block: 0.7rem;
+}
+.docs-sidebar nav a {
+  padding: 0.4rem 0.7rem;
+  border-left: 2px solid var(--line);
+  text-decoration: none;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+.docs-sidebar nav a:hover,
+.docs-sidebar nav a:focus-visible {
+  border-color: currentColor;
+  background: var(--accent);
+}
+.docs-sidebar .docs-version {
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  margin-block: 0.5rem 1rem;
+}
+.docs-content {
+  min-width: 0;
+  max-width: 52rem;
+}
+.docs-content h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  margin-top: 0.3rem;
+}
+.docs-content h2 {
+  font-size: 1.8rem;
+  padding-top: 2.2rem;
+  border-top: 1px solid var(--line);
+  margin-top: 2.7rem;
+  scroll-margin-top: 1.5rem;
+}
+.docs-content > p,
+.docs-content > ul {
+  font-size: 0.95rem;
+}
+.docs-content li {
+  margin-block: 0.5em;
+}
+.docs-content a {
+  text-underline-offset: 0.25em;
+}
+.docs-content :not(pre) > code {
+  font-size: 0.85em;
+  background: var(--page-paper, #e6eadf);
+  padding: 0.12em 0.3em;
+  border-radius: 0.2em;
+  overflow-wrap: anywhere;
+}
+.docs-code {
+  margin-block: 1.4rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--line);
+  background: var(--code-paper);
+  color: var(--on-dark);
+  overflow: hidden;
+}
+.docs-code-label {
+  padding: 0.6rem 1rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+}
+.docs-content .docs-code pre {
+  padding: 1rem 1.25rem;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.65;
+  font-size: 0.78rem;
+}
+.docs-content .hljs {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+.docs-content table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.8rem;
+  margin-block: 1.5rem;
+}
+.docs-content td,
+.docs-content th {
+  border-bottom: 1px solid var(--line);
+  padding: 0.75rem 0.6rem;
+  text-align: start;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.docs-content th:first-child,
+.docs-content td:first-child {
+  width: 35%;
+}
+.docs-callout {
+  background: var(--accent);
+  border-left: 3px solid var(--ink);
+  padding: 1rem 1.25rem;
+  margin-block: 1.5rem;
+  font-size: 0.9rem;
+}
+.docs-controls {
+  padding: 1rem 0 1.5rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.5rem;
+}
+.docs-controls .openregard-label,
+.docs-controls .openregard-description {
+  font-size: 0.78rem;
+}
+:root[data-regard-profile="strong"] .docs-content .hljs * {
+  color: inherit !important;
+}
+@media (max-width: 900px) {
+  .docs-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-top: 2rem;
+  }
+  .docs-sidebar {
+    position: static;
+    max-height: none;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .docs-sidebar nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: 0.3rem;
+  }
+  .docs-content {
+    max-width: none;
+  }
+}
+
+.responsibility {
+  display: block;
 }

@@ -1,0 +1,100 @@
+.source-viewer {
+  margin-block: 3rem;
+  color: inherit;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+.source-viewer h2 {
+  margin-bottom: 0.3em;
+}
+.source-viewer > p {
+  margin-top: 0;
+  font-size: 0.9em;
+}
+.source-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  padding: 0.7em;
+  border: 1px solid currentColor;
+  border-radius: 0.5em 0.5em 0 0;
+}
+.source-tabs[hidden],
+.source-panel[hidden] {
+  display: none;
+}
+.source-tabs button {
+  font: inherit;
+  font-size: 0.8em;
+  background: Canvas;
+  color: CanvasText;
+  border: 1px solid currentColor;
+  border-radius: 0.3em;
+  padding: 0.6em 0.8em;
+  cursor: pointer;
+}
+.source-tabs button[aria-selected="true"] {
+  color: Canvas;
+  background: CanvasText;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.source-viewer :focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 3px;
+}
+.source-panel {
+  min-inline-size: 0;
+  border: 1px solid currentColor;
+  border-top: 0;
+  border-radius: 0 0 0.5em 0.5em;
+}
+.source-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5em 1em;
+  padding: 0.8em 1em;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.8em;
+}
+.source-toolbar > span {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.source-toolbar button {
+  padding: 0.4em 0.7em;
+  font-size: 1em;
+}
+.source-panel pre {
+  margin: 0;
+  padding: 1em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  background: var(--panel-paper, #142b25);
+  color: var(--panel-ink, #f0f4e8);
+}
+.source-panel code.hljs {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+.source-panel h3 {
+  margin: 0;
+  padding: 1em;
+  font-size: 0.9em;
+}
+:root[data-regard-profile="strong"] .source-panel .hljs * {
+  color: inherit !important;
+}
+@media (forced-colors: active) {
+  .source-panel pre {
+    background: Canvas;
+    color: CanvasText;
+  }
+  .source-panel .hljs * {
+    color: inherit !important;
+  }
+}
