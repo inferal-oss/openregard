@@ -853,13 +853,6 @@ h3 {
   display: block;
 }
 
-/* Apply spacing overrides to headings and compact UI as well as body text. */
-:root[data-regard-profile]:not([data-regard-profile="standard"])
-  :is(h1, h2, h3, p, a, span, label, select, button, li, td, th) {
-  line-height: var(--regard-line-height, 1.6);
-  letter-spacing: var(--regard-letter-spacing, normal);
-  word-spacing: var(--regard-word-spacing, normal);
-}
 p {
   margin-block-end: var(--regard-paragraph-spacing, 1em);
 }

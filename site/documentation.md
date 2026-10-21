@@ -250,7 +250,7 @@ select {
 
 ### Profiles in the live examples
 
-The website and examples compose these recipes into site-owned profiles:
+The runnable examples compose these recipes into site-owned profiles:
 
 | Profile                | Composition                                                                          |
 | ---------------------- | ------------------------------------------------------------------------------------ |
@@ -258,6 +258,8 @@ The website and examples compose these recipes into site-owned profiles:
 | Vision                 | `textSpacing` + `nativeControls` + 125% root font size.                              |
 | Vision + High Contrast | Vision + `contrastLight`, including paired colors and stronger borders.              |
 | Max Contrast           | `textSpacing` + `nativeControls` + 150% root font size and custom black/white pairs. |
+
+The project website uses calmer reading profiles with modest tracking and compact headings; it does not automatically apply the full WCAG spacing test recipe.
 
 These profile names are library examples, not names defined by W3C or WHATWG. Copy and adapt them; the standards sources below explain which values informed the recipes.
 

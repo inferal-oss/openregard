@@ -11,6 +11,7 @@ const assetVersion = createHash("sha256")
           "site/index.html",
           "site/site.css",
           "site/site.js",
+          "site/display-config.js",
           "site/documentation.md",
           "package.json",
         ].map((file) => readFile(file, "utf8")),
