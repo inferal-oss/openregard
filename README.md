@@ -1,15 +1,22 @@
 <p align="center"><img src="https://raw.githubusercontent.com/inferal-oss/openregard/main/docs/assets/mark.svg" width="80" height="80" alt="Open Regard logo" /></p>
 
-# Open Regard
+<h1 align="center">Open Regard</h1>
 
-**A modular accessibility toolkit. Display is the first module.**
+<p align="center"><strong>A modular accessibility toolkit. Display is the first module.</strong></p>
 
-[![CI](https://github.com/inferal-oss/openregard/actions/workflows/ci.yml/badge.svg)](https://github.com/inferal-oss/openregard/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/openregard)](https://www.npmjs.com/package/openregard)
-[![npm downloads](https://img.shields.io/npm/dm/openregard)](https://www.npmjs.com/package/openregard)
-[![MIT license](https://img.shields.io/npm/l/openregard)](LICENSE)
+<p align="center">
+  <a href="https://github.com/inferal-oss/openregard/actions/workflows/ci.yml"><img src="https://github.com/inferal-oss/openregard/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://www.npmjs.com/package/openregard"><img src="https://img.shields.io/npm/v/openregard" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/openregard"><img src="https://img.shields.io/npm/dm/openregard" alt="npm downloads" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/npm/l/openregard" alt="MIT license" /></a>
+</p>
 
-[Website](https://openregard.org/) · [Documentation](https://openregard.org/docs/) · [Live examples](https://openregard.org/examples/) · [npm](https://www.npmjs.com/package/openregard)
+<p align="center">
+  <a href="https://openregard.org/">Website</a> ·
+  <a href="https://openregard.org/docs/">Documentation</a> ·
+  <a href="https://openregard.org/examples/">Live examples</a> ·
+  <a href="https://www.npmjs.com/package/openregard">npm</a>
+</p>
 
 Open Regard brings small accessibility tools together as independent modules. **Display**, available today, lets people choose a site's display profile and keeps that preference in sync across controls, pages and tabs. More modules will follow; this release contains Display.
 
