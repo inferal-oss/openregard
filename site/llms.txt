@@ -1,0 +1,33 @@
+# Open Regard
+
+> Open Regard is a modular, MIT-licensed accessibility toolkit. Display is the first available module: site-owned display profiles with native controls, CSS tokens, persistence and same-origin synchronization. Future modules are not yet available.
+
+Package: openregard (npm). Core has no runtime dependencies; React 18/19 is optional. ESM and standalone browser bundles are included. The project website uses Display itself.
+
+## Documentation
+
+- [Display documentation](https://openregard.org/docs/): Installation, configuration, API, styling hooks, presets, React, static pages, SSR, synchronization and cleanup.
+- [Plain-text documentation](https://openregard.org/docs/display.md): The same documentation as Markdown.
+- [Adoption contract](https://openregard.org/adoption/): Site integration responsibilities and migration guidance.
+- [Widget styling](https://openregard.org/docs/#style-the-widget): Shared public classes, className and --openregard-* theme variables; the CSS is optional.
+- [Standards and token presets](https://openregard.org/docs/#standards-and-token-presets): Optional wcagPresets and htmlPresets from openregard/presets. Numeric visual guidance comes from WCAG; WHATWG supplies native HTML semantics/rendering guidance. Presets do not establish conformance.
+
+## Runnable examples
+
+- [Vanilla HTML](https://openregard.org/examples/): Two synchronized widgets, forms and paired surfaces.
+- [Static documentation](https://openregard.org/examples/docs.html): Same-origin preference applied before paint.
+- [React](https://openregard.org/examples/react.html): React and vanilla bindings sharing one controller.
+
+Each example includes real syntax-highlighted source files. Run locally with: npx --package=openregard openregard-demo
+
+## Source and distribution
+
+- [GitHub](https://github.com/inferal-oss/openregard): Source, CI and issues.
+- [npm](https://www.npmjs.com/package/openregard): Published package, types, browser bundles and included runnable demo.
+- [Releases](https://github.com/inferal-oss/openregard/releases): Version history.
+
+## Integration facts
+
+createRegard(config) validates and freezes configuration. mountWidget(container, regard, options) mounts a native select. openregard/react exports RegardWidget and useProfile. openregard/style.css provides optional low-specificity defaults. openregard/presets exports immutable visual and native-control token recipes. Classic scripts use OpenRegard and optional OpenRegardPresets globals.
+
+Profile IDs are application-owned; keep them stable. Display applies data-regard-profile by default and optional inline custom properties. The site's CSS must consume these tokens. Share one controller per root/attribute. start() acquires a lease; final cleanup restores the original root state. Storage is best effort; there is no automatic cross-subdomain synchronization. For first paint, load self-hosted core, optional presets and configuration synchronously in the head; reuse that controller in React. Installing the module does not establish accessibility conformance.

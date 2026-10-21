@@ -65,4 +65,8 @@ for (const [route, title, file, isDocs] of [
     `${head(title)}<body><a class="skip" href="#main">Skip to content</a>${header}${main}${footer}<script src="../docs.js" defer></script></body></html>`,
   );
 }
+const plainDocs = (await readFile("site/documentation.md", "utf8"))
+  .replaceAll("(../examples/", "(https://openregard.org/examples/")
+  .replaceAll("(../adoption/)", "(https://openregard.org/adoption/)");
+await writeFile(`${out}/docs/display.md`, plainDocs);
 console.log("GitHub Pages site built in .pages/");

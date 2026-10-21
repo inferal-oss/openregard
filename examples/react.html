@@ -3,31 +3,94 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>React example — Open Regard</title>
+    <title>React binding — Open Regard Display</title>
+    <!-- Self-host synchronous scripts so the saved profile applies before paint. -->
     <script src="../dist/browser.js"></script>
+    <script src="../dist/presets.browser.js"></script>
     <script src="./config.js"></script>
     <link rel="stylesheet" href="../dist/style.css" />
     <link rel="stylesheet" href="./demo.css" />
+    <link rel="icon" href="./mark.svg" type="image/svg+xml" />
   </head>
   <body>
-    <header>
-      <div>
-        <p>OPEN REGARD / REACT</p>
-        <h1>One controller.<br />Both bindings.</h1>
-      </div>
-      <div id="react-controls"></div>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead shell">
+      <a class="brand" href="https://openregard.org/"
+        ><img src="./mark.svg" alt="" />open regard.</a
+      >
+      <span class="meta">Module 01 / Display / Runnable examples</span>
     </header>
-    <nav aria-label="Example navigation">
-      <a href="./">Home</a><a href="./docs.html">Static documentation</a>
+    <nav class="example-nav shell" aria-label="Example navigation">
+      <a href="./">Vanilla HTML</a><a href="./docs.html">Static docs</a
+      ><a href="./react.html" aria-current="page">React</a
+      ><a href="https://openregard.org/docs/">Library documentation ↗</a>
     </nav>
-    <main>
-      <p>
-        The React widget and the vanilla widget share the controller created
-        before paint.
-      </p>
-      <div id="controls"></div>
+    <main id="main" class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">03 / React + vanilla</p>
+          <h1>Two bindings.<br /><em>One controller.</em></h1>
+          <p class="intro">
+            The React widget in this panel shares the controller that was
+            started before paint. Change it here or in the vanilla control
+            below; both update together.
+          </p>
+        </div>
+        <aside class="control-card" aria-label="Display settings">
+          <p class="eyebrow">Try a display profile</p>
+          <div id="react-controls"></div>
+        </aside>
+      </section>
+
+      <div class="section-head">
+        <h2>Use Display inside a React app</h2>
+        <p>Optional binding · Shared state · Site-owned CSS</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <p class="eyebrow">React binding</p>
+          <h2>Subscribe, then render.</h2>
+          <p>
+            <code>RegardWidget</code> uses the same native markup and public CSS
+            hooks as the vanilla widget. Pass <code>className</code> to scope
+            your design; keep the controller stable between renders.
+          </p>
+          <pre class="code-note"><code>&lt;RegardWidget
+  regard={regard}
+  className="demo-widget"
+/&gt;</code></pre>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Vanilla binding</p>
+          <h2>Same profile. No bridge.</h2>
+          <p>
+            This control is mounted directly into the DOM. It shares the
+            existing controller with React.
+          </p>
+          <div id="controls"></div>
+        </article>
+      </div>
+      <section class="sync-row">
+        <div>
+          <p class="eyebrow">A shared configuration</p>
+          <h2>Presets work in both bindings.</h2>
+        </div>
+        <p>
+          Composition happens in <strong>config.js</strong>, outside React.
+          Vision adds text-spacing tokens; Vision + High Contrast adds paired
+          colors and borders. Both widgets inherit the page’s new presentation.
+        </p>
+      </section>
+
       <!-- OPENREGARD_SOURCE -->
     </main>
+    <footer class="shell">
+      <p>
+        Open Regard / Display. Profiles and page styles are configured by the
+        site. Test your integration with your content and users.
+      </p>
+      <a href="https://github.com/inferal-oss/openregard">View the project ↗</a>
+    </footer>
     <script src="../dist/react-demo.js" defer></script>
   </body>
 </html>

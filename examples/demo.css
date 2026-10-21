@@ -1,86 +1,375 @@
 :root {
-  font-size: var(--reading-size, 100%);
-  color: var(--page-ink, #17352d);
-  background: var(--page-paper, #f6f5ed);
-  font-family: system-ui, sans-serif;
-  line-height: var(--reading-leading, 1.6);
+  font-size: var(--regard-font-size, 100%);
+  --ink: var(--regard-page-ink, #203b32);
+  --paper: var(--regard-page-paper, #f4f5ee);
+  --muted: var(--regard-page-ink, #52645b);
+  --line: var(--regard-border-color, #c5cec0);
+  --panel-paper: var(--regard-panel-paper, #203b32);
+  --panel-ink: var(--regard-panel-ink, #f4f7ee);
+  --surface: var(--regard-page-paper, #fffef8);
+  --accent: var(--regard-page-paper, #d8ebbb);
+  color: var(--ink);
+  background: var(--paper);
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  line-height: var(--regard-line-height, 1.65);
+  letter-spacing: var(--regard-letter-spacing, normal);
+  word-spacing: var(--regard-word-spacing, normal);
+}
+* {
+  box-sizing: border-box;
 }
 body {
-  overflow-wrap: anywhere;
-  max-width: 64rem;
-  margin: auto;
-  padding: clamp(0.75rem, 4vw, 3rem);
-}
-header {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  align-items: start;
-  justify-content: space-between;
-}
-h1 {
-  font-size: clamp(1.8rem, 6vw, 3.5rem);
-  line-height: 1.15;
-  margin-block: 0.5em;
+  margin: 0;
   overflow-wrap: anywhere;
 }
-h2 {
-  line-height: 1.3;
+.shell {
+  width: min(100% - 3rem, 76rem);
+  margin-inline: auto;
 }
 a {
   color: inherit;
+  text-underline-offset: 0.25em;
 }
-header > * {
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}
+.skip {
+  position: absolute;
+  transform: translateY(-150%);
+  background: Canvas;
+  color: CanvasText;
+  padding: 0.7em;
+  z-index: 5;
+}
+.skip:focus {
+  transform: none;
+}
+.masthead {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 1.5rem;
+}
+.brand {
+  display: inline-flex;
+  gap: 0.65em;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+.brand img {
+  width: 2rem;
+  height: 2rem;
+}
+.masthead .meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.example-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.5rem;
+  padding-block: 0.8rem;
+  border-block: 1px solid var(--line);
+  font-size: 0.85rem;
+}
+.example-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75em;
+  text-decoration: none;
+}
+.example-nav [aria-current] {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.55em;
+}
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-block: 3.5rem;
+  align-items: start;
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+h1 {
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.055em;
+  margin: 0.8rem 0 1.5rem;
+  font-weight: 600;
+}
+h1 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+h2 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+  font-weight: 600;
+  margin-top: 0;
+}
+h3 {
+  line-height: 1.3;
+  font-size: 1.1rem;
+}
+p {
+  margin-block: 0 1em;
+  margin-block-end: var(--regard-paragraph-spacing, 1em);
+}
+.intro {
+  font-size: 1.05rem;
+  color: var(--muted);
+  max-width: 39rem;
+}
+.control-card {
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+  background: var(--surface);
+  box-shadow: 0 8px 0 var(--accent);
   min-width: 0;
-  max-width: 100%;
 }
-#controls,
-#react-controls {
-  flex: 1 1 22rem;
+.control-card .eyebrow {
+  margin-bottom: 1rem;
+}
+/* The same public styling hooks work on React and vanilla widgets. */
+.demo-widget {
+  --openregard-control-radius: 0.4rem;
+  --openregard-control-padding: 0.75em;
+  --openregard-gap: 0.6rem;
+  --openregard-focus-color: var(--ink);
+}
+.demo-widget .openregard-label {
+  flex: 1;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.demo-widget .openregard-select {
+  width: 100%;
+}
+.demo-widget .openregard-description {
+  font-size: 0.78rem;
+  margin-top: 0.8rem;
+  color: var(--muted);
+}
+.section-head {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-block: 1rem 1.5rem;
+}
+.section-head h2 {
+  margin: 0;
+}
+.section-head p {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0;
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
 }
-article {
-  padding: 1.25rem;
-  border: 1px solid currentColor;
+.card {
+  border: 1px solid var(--line);
   border-radius: 0.7rem;
+  padding: clamp(1.1rem, 3vw, 2rem);
+  background: var(--surface);
   min-width: 0;
-  overflow-wrap: anywhere;
+}
+.card .eyebrow {
+  margin-bottom: 1.4rem;
 }
 .dark {
-  background: var(--panel-paper, #17352d);
-  color: var(--panel-ink, #fff);
+  background: var(--panel-paper);
+  color: var(--panel-ink);
+  border-color: currentColor;
+}
+.dark p {
+  color: inherit;
+}
+.large-number {
+  font-family: Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 1.2;
+}
+.tag {
+  display: inline-block;
+  border: 1px solid currentColor;
+  border-radius: 2rem;
+  padding: 0.2em 0.7em;
+  font-size: 0.7rem;
+}
+label:not(.openregard) {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 input,
 button {
   box-sizing: border-box;
   font: inherit;
-  padding: 0.7em;
   max-width: 100%;
   min-width: 0;
 }
 input {
-  width: 100%;
-}
-label {
   display: block;
+  width: 100%;
+  margin-top: 0.5em;
+  padding: 0.75em;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0.35rem;
 }
 button {
   cursor: pointer;
-  border: 1px solid currentColor;
-  border-radius: 0.3em;
+  padding: 0.65em 0.9em;
   background: Canvas;
   color: CanvasText;
+  border: 1px solid currentColor;
+  border-radius: 0.35rem;
 }
-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-block: 1rem;
+.sync-row {
+  margin-block: 1.5rem 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+  background: var(--accent);
+  border: 1px solid var(--line);
+  border-radius: 0.7rem;
+}
+.sync-row p {
+  font-size: 0.85rem;
+}
+.doc-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+  gap: 3rem;
+}
+.doc-index {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  font-size: 0.8rem;
+}
+.doc-index a {
+  display: block;
+  padding-block: 0.6em;
+}
+.doc-article {
+  min-width: 0;
+  max-width: 48rem;
+}
+.doc-article section {
+  padding-block: 1rem 2rem;
+}
+.steps {
+  padding-inline-start: 1.5rem;
+}
+.steps li {
+  padding-inline-start: 0.4em;
+  margin-block: 1em;
+}
+code {
+  font-size: 0.88em;
+  overflow-wrap: anywhere;
+}
+.code-note {
+  padding: 1.5rem;
+  background: var(--panel-paper);
+  color: var(--panel-ink);
+  border-radius: 0.5rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.7;
+}
+.recipe-note {
+  border-left: 3px solid currentColor;
+  padding-inline-start: 1rem;
+  font-size: 0.85rem;
 }
 footer {
-  margin-block: 2rem;
+  border-top: 1px solid var(--line);
+  padding-block: 2rem;
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+footer p {
+  margin: 0;
+  max-width: 40rem;
+}
+/* Spacing overrides also reach typography with authored heading/tracking values. */
+:root:not([data-regard-profile="standard"])
+  :is(h1, h2, h3, p, a, label, span, select, button, li) {
+  line-height: var(--regard-line-height, 1.65);
+  letter-spacing: var(--regard-letter-spacing, normal);
+  word-spacing: var(--regard-word-spacing, normal);
+}
+@media (max-width: 850px) {
+  .hero,
+  .doc-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .hero {
+    padding-block: 2rem 3rem;
+  }
+  .doc-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+}
+@media (max-width: 600px) {
+  .shell {
+    width: calc(100% - 2rem);
+  }
+  .grid,
+  .sync-row {
+    grid-template-columns: 1fr;
+  }
+  .sync-row {
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+  .masthead {
+    padding-block: 1rem;
+  }
+}
+@media (forced-colors: active) {
+  .dark,
+  .code-note {
+    background: Canvas;
+    color: CanvasText;
+  }
+  .control-card {
+    box-shadow: none;
+  }
 }

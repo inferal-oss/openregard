@@ -1,14 +1,14 @@
 {
   "name": "openregard",
-  "version": "0.1.1",
-  "description": "Configurable display preferences for accessible websites: dependency-free core, native widget, optional React binding.",
+  "version": "0.2.0",
+  "description": "A modular accessibility toolkit. Display preferences: dependency-free core, native widgets, token presets and optional React bindings.",
   "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/inferal-oss/openregard.git"
   },
-  "homepage": "https://github.com/inferal-oss/openregard#readme",
+  "homepage": "https://openregard.org",
   "bugs": "https://github.com/inferal-oss/openregard/issues",
   "keywords": [
     "accessibility",
@@ -40,7 +40,12 @@
     },
     "./style.css": "./dist/style.css",
     "./browser.js": "./dist/browser.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./presets": {
+      "types": "./dist/presets.d.ts",
+      "import": "./dist/presets.js"
+    },
+    "./presets/browser.js": "./dist/presets.browser.js"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

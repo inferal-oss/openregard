@@ -37,6 +37,7 @@ export function RegardWidget({
         )}
         <span className="openregard-label">{regard.config.controlLabel}</span>
         <select
+          className="openregard-select"
           aria-description={description}
           aria-label={regard.config.controlLabel}
           title={profileDescription(regard)}

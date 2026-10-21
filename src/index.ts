@@ -270,6 +270,8 @@ export function createRegard(input: DisplayConfig): Regard {
 export const eyePath =
   "M2 12 Q12 0 22 12 Q12 24 2 12 Z M16 12 A4 4 0 1 1 8 12 A4 4 0 1 1 16 12";
 export interface WidgetOptions {
+  /** Additional classes on the outer .openregard-widget element. */
+  className?: string;
   /** false hides the eye; a factory supplies your own decorative DOM element. */
   icon?: false | ((document: Document) => Element);
 }
@@ -309,6 +311,7 @@ export function mountWidget(
   name.textContent = regard.config.controlLabel;
   const select = doc.createElement("select");
   // Explicit label also supports compact designs which visually hide the label.
+  select.className = "openregard-select";
   select.setAttribute("aria-label", regard.config.controlLabel);
   for (const profile of regard.config.profiles) {
     const option = doc.createElement("option");
@@ -331,7 +334,7 @@ export function mountWidget(
   select.addEventListener("change", change);
   label.append(name, select);
   const wrapper = doc.createElement("div");
-  wrapper.className = "openregard-widget";
+  wrapper.className = `openregard-widget ${options.className ?? ""}`.trim();
   wrapper.append(label, description);
   const stop = regard.start({ window: doc.defaultView! });
   const unsubscribe = regard.subscribe(sync);

@@ -3,69 +3,110 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Open Regard — display preferences example</title>
-    <!-- Synchronous scripts apply the stored profile before body content can paint. Self-host these files. -->
+    <title>Vanilla HTML — Open Regard Display</title>
+    <!-- Self-host synchronous scripts so the saved profile applies before paint. -->
     <script src="../dist/browser.js"></script>
+    <script src="../dist/presets.browser.js"></script>
     <script src="./config.js"></script>
     <link rel="stylesheet" href="../dist/style.css" />
     <link rel="stylesheet" href="./demo.css" />
+    <link rel="icon" href="./mark.svg" type="image/svg+xml" />
   </head>
   <body>
-    <header>
-      <div>
-        <p>OPEN REGARD / EXAMPLE</p>
-        <h1>Display preferences<br />example.</h1>
-      </div>
-      <div id="controls"></div>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead shell">
+      <a class="brand" href="https://openregard.org/"
+        ><img src="./mark.svg" alt="" />open regard.</a
+      >
+      <span class="meta">Module 01 / Display / Runnable examples</span>
     </header>
-    <nav aria-label="Example navigation">
-      <a href="./">Home</a><a href="./docs.html">Static documentation</a
-      ><a href="./react.html">React example</a
-      ><a href="https://github.com/inferal-oss/openregard">Source</a>
+    <nav class="example-nav shell" aria-label="Example navigation">
+      <a href="./" aria-current="page">Vanilla HTML</a
+      ><a href="./docs.html">Static docs</a><a href="./react.html">React</a
+      ><a href="https://openregard.org/docs/">Library documentation ↗</a>
     </nav>
-    <main>
-      <p>
-        Choose a site-owned display profile. Open Regard remembers your
-        selection and keeps this page and the documentation in sync.
-      </p>
+    <main id="main" class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">01 / Vanilla HTML</p>
+          <h1>One preference.<br /><em>Across the website.</em></h1>
+          <p class="intro">
+            Change the display profile and try the form, cards and second
+            control below. Open the static docs in another tab to see the same
+            selection there.
+          </p>
+        </div>
+        <aside class="control-card" aria-label="Display settings">
+          <p class="eyebrow">Try a display profile</p>
+          <div id="controls"></div>
+        </aside>
+      </section>
+
+      <div class="section-head">
+        <h2>A small reading workspace</h2>
+        <p>Flexible layout · Paired surfaces · Native form</p>
+      </div>
       <div class="grid">
-        <article>
-          <h2>Make room for the text</h2>
+        <article class="card">
+          <p class="eyebrow">Reading notes / 001</p>
+          <h2>Give the content room.</h2>
           <p>
-            Flexible containers preserve content as text grows. This card has no
-            fixed height or clipped preview.
+            A display preference should work beyond a paragraph. This sample
+            includes navigation, form controls and different surfaces, with
+            space to grow when text or spacing increases.
           </p>
           <label
             >Search the example<input
               type="search"
-              placeholder="Search all the documentation"
+              placeholder="A native search field to try"
           /></label>
         </article>
-        <article class="dark">
-          <h2>Keep color pairs together</h2>
+        <article class="card dark">
+          <p class="eyebrow">Palette check</p>
+          <span class="tag">Foreground + background</span>
+          <h2 style="margin-top: 1.5rem">Keep color pairs together.</h2>
           <p>
-            A dark surface needs its own foreground. Example profiles define
-            both instead of recoloring every element on the page.
+            Vision + High Contrast uses a restrained green palette and stronger
+            borders. Max Contrast switches to black and white. Both define each
+            surface and its text together.
           </p>
           <button type="button" id="reset">Reset preferences</button>
         </article>
       </div>
-      <h2>Two controls, one preference</h2>
-      <div id="secondary"></div>
-      <p>
-        Tab to a select, use the native keyboard controls, and continue reading
-        without losing focus.
+      <section class="sync-row">
+        <div>
+          <p class="eyebrow">Same controller / A different style</p>
+          <h2>Two controls, one preference.</h2>
+          <p>
+            This second widget hides the decorative icon. Its native select
+            stays in sync without moving focus.
+          </p>
+        </div>
+        <div id="secondary"></div>
+      </section>
+      <p class="recipe-note">
+        The Vision profiles compose <code>wcagPresets.textSpacing</code> with
+        <code>htmlPresets.nativeControls</code>. The first supplies presentation
+        tokens; native HTML supplies labels and control behavior. Inspect
+        <strong>config.js</strong> and <strong>demo.css</strong> below.
       </p>
+
       <!-- OPENREGARD_SOURCE -->
     </main>
-    <footer>
-      Installing a preference selector does not establish accessibility
-      conformance.
+    <footer class="shell">
+      <p>
+        Open Regard / Display. Profiles and page styles are configured by the
+        site. Test your integration with your content and users.
+      </p>
+      <a href="https://github.com/inferal-oss/openregard">View the project ↗</a>
     </footer>
     <script>
-      OpenRegard.mountWidget(document.getElementById("controls"), regard);
+      OpenRegard.mountWidget(document.getElementById("controls"), regard, {
+        className: "demo-widget",
+      });
       OpenRegard.mountWidget(document.getElementById("secondary"), regard, {
         icon: false,
+        className: "demo-widget",
       });
       document.getElementById("reset").onclick = () => regard.reset();
     </script>

@@ -16,7 +16,7 @@
   flex-wrap: wrap;
   gap: 0.4em;
   padding: 0.7em;
-  border: 1px solid currentColor;
+  border: 1px solid var(--line, currentColor);
   border-radius: 0.5em 0.5em 0 0;
 }
 .source-tabs[hidden],
@@ -26,16 +26,16 @@
 .source-tabs button {
   font: inherit;
   font-size: 0.8em;
-  background: Canvas;
-  color: CanvasText;
-  border: 1px solid currentColor;
+  background: var(--surface, Canvas);
+  color: var(--ink, CanvasText);
+  border: 1px solid var(--line, currentColor);
   border-radius: 0.3em;
   padding: 0.6em 0.8em;
   cursor: pointer;
 }
 .source-tabs button[aria-selected="true"] {
-  color: Canvas;
-  background: CanvasText;
+  color: var(--panel-ink, Canvas);
+  background: var(--panel-paper, CanvasText);
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
@@ -45,7 +45,7 @@
 }
 .source-panel {
   min-inline-size: 0;
-  border: 1px solid currentColor;
+  border: 1px solid var(--line, currentColor);
   border-top: 0;
   border-radius: 0 0 0.5em 0.5em;
 }
@@ -55,7 +55,7 @@
   align-items: center;
   gap: 0.5em 1em;
   padding: 0.8em 1em;
-  border-bottom: 1px solid currentColor;
+  border-bottom: 1px solid var(--line, currentColor);
   font-size: 0.8em;
 }
 .source-toolbar > span {
@@ -97,4 +97,16 @@
   .source-panel .hljs * {
     color: inherit !important;
   }
+}
+
+:root[data-regard-profile="vision-contrast"] .source-panel .hljs * {
+  color: inherit !important;
+}
+.source-tabs {
+  background: var(--surface, Canvas);
+  gap: 0.6em;
+  padding: 1em;
+}
+.source-toolbar {
+  background: var(--surface, Canvas);
 }

@@ -1,172 +1,134 @@
+<p align="center"><img src="https://raw.githubusercontent.com/inferal-oss/openregard/main/docs/assets/mark.svg" width="80" height="80" alt="Open Regard logo" /></p>
+
 # Open Regard
 
-Open-source tools for accessibility. This package provides the first module: configurable display preferences for websites, applications and static documentation.
-A small TypeScript controller remembers a profile, applies a CSS hook and optional custom properties, and synchronizes native controls. You own the profiles and the styles that honor them.
+**A modular accessibility toolkit. Display is the first module.**
 
-```sh
-npm install openregard
-```
+[![CI](https://github.com/inferal-oss/openregard/actions/workflows/ci.yml/badge.svg)](https://github.com/inferal-oss/openregard/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/openregard)](https://www.npmjs.com/package/openregard)
+[![npm downloads](https://img.shields.io/npm/dm/openregard)](https://www.npmjs.com/package/openregard)
+[![MIT license](https://img.shields.io/npm/l/openregard)](LICENSE)
 
-No runtime dependencies in the core. ESM, public TypeScript types, standalone browser bundle, widget CSS, optional React 18/19 binding. MIT licensed. Originally extracted from Startup Tier.
+[Website](https://openregard.org/) · [Documentation](https://openregard.org/docs/) · [Live examples](https://openregard.org/examples/) · [npm](https://www.npmjs.com/package/openregard)
 
-## Project website
+Open Regard brings small accessibility tools together as independent modules. **Display**, available today, lets people choose a site's display profile and keeps that preference in sync across controls, pages and tabs. More modules will follow; this release contains Display.
 
-The [project website](https://openregard.org) uses Open Regard itself and includes [formatted documentation](https://openregard.org/docs/) and all three live demos.
-From a source checkout, build it with `npm run build:site`, then run `npm run site` and open
-http://127.0.0.1:4399/. The website sponsorship credit is separate from the reusable widget.
+You define the profiles and CSS. The module handles selection, persistence, root attributes and optional CSS tokens. The core has no runtime dependencies; React is optional. ESM, TypeScript declarations and standalone browser bundles are included. MIT licensed; originally extracted from Startup Tier.
 
-## Run the included demo
+## Try Display
 
-The published package includes a runnable demo with vanilla widgets, a separate static documentation page and a React example, each with a syntax-highlighted source viewer. No bundler or checkout required:
+The package includes runnable vanilla HTML, static documentation and React demos, each with a syntax-highlighted source viewer:
 
 ```sh
 npx --package=openregard openregard-demo
 # Open http://127.0.0.1:4397/examples/
 ```
 
-From a source checkout:
+Try **Vision**, **Vision + High Contrast** or **Max Contrast**, then open the static docs in another tab. Both pages share the preference. The project website uses the module too.
+
+## Install and use
 
 ```sh
-npm ci
-npm run build
-npm run demo
+npm install openregard
 ```
-
-The demo binds only to localhost, uses its own storage key and includes a deliberately long profile label, paired light/dark colors, flexible cards and forms. Both bindings share one controller. Open its docs in another tab to see synchronization.
-
-## Vanilla
 
 ```js
 import { createRegard, mountWidget } from "openregard";
+import { wcagPresets } from "openregard/presets";
 import "openregard/style.css";
 
 const regard = createRegard({
   version: 1,
   defaultProfile: "standard",
   storageKey: "my-site-display",
-  controlLabel: "Reading and display preferences", // localize this
+  controlLabel: "Reading and display preferences",
   profiles: [
     { id: "standard", label: "Standard" },
     {
-      id: "roomy",
-      label: "Room to read",
-      description: "Larger text and spacing",
-      tokens: { "--reading-size": "125%", "--reading-leading": "1.8" },
+      id: "vision",
+      label: "Vision",
+      tokens: {
+        ...wcagPresets.textSpacing,
+        "--regard-font-size": "125%",
+      },
     },
   ],
 });
-const stop = regard.start();
+
 const widget = mountWidget(document.querySelector("#display-settings"), regard);
-// Later: widget.destroy(); stop();
+// When removing the control: widget.destroy();
 ```
 
-Your site CSS must use the hook or tokens:
+Add `<div id="display-settings"></div>` to your page, and consume the tokens in your CSS:
 
 ```css
 :root {
-  font-size: var(--reading-size, 100%);
+  font-size: var(--regard-font-size, 100%);
 }
 body {
-  line-height: var(--reading-leading, 1.5);
+  line-height: var(--regard-line-height, 1.6);
+  letter-spacing: var(--regard-letter-spacing, normal);
+  word-spacing: var(--regard-word-spacing, normal);
 }
-/* Tokens are optional. Profile IDs have no built-in meaning. */
-:root[data-regard-profile="roomy"] .cards {
-  gap: 1.5rem;
-}
-```
-
-Keep the controller stable and share it across widgets. Each `start()` acquires a lease; its returned cleanup releases that lease. Widgets acquire/release their own leases. The last cleanup restores the root's original attribute and the values/priorities of all configured inline tokens. Dispose widgets before releasing your page lease. Storage is retained after cleanup.
-
-`start({root, window})` supports a custom HTMLElement root and its owning window. A widget uses the controller's active root, or the document root when not started. Use one controller per root/attribute. Distinct roots with the same storage key synchronize on the same page. Do not ship duplicate independent copies controlling the same root.
-
-## Configuration and API
-
-```ts
-interface DisplayProfile {
-  id: string;
-  label: string;
-  description?: string;
-  tokens?: Record<`--${string}`, string>;
-}
-interface DisplayConfig {
-  version: 1;
-  defaultProfile: string;
-  storageKey: string;
-  controlLabel: string;
-  profiles: readonly DisplayProfile[];
-  attribute?: string; // defaults to data-regard-profile
+p {
+  margin-block-end: var(--regard-paragraph-spacing, 1em);
 }
 ```
 
-IDs are case-sensitive, 1–64 ASCII letters/digits/underscores/hyphens, beginning with a letter or digit. Keep IDs stable when translating labels. Empty labels, duplicate IDs, missing defaults, invalid token names and invalid attributes throw diagnostic errors at creation. `validateConfig(config)` returns an immutable copy. Tokens accept nonempty CSS strings; configuration is trusted application code, not untrusted user input. The browser determines CSS value validity.
-
-| Method                | Behavior                                                                |
-| --------------------- | ----------------------------------------------------------------------- |
-| `getSnapshot()`       | Current profile ID; initially the default until `start()` reads storage |
-| `getServerSnapshot()` | Always the configured default for SSR/hydration                         |
-| `setProfile(id)`      | Apply, persist and notify; unknown IDs throw `RangeError`               |
-| `reset()`             | Select default and attempt to remove the saved key                      |
-| `subscribe(fn)`       | Listen to selection changes; returns unsubscribe                        |
-| `start(options?)`     | Start synchronization and application; returns idempotent cleanup       |
-
-On switching, all owned tokens return to their original baseline before the next profile's tokens are applied. A profile with no tokens cannot retain a previous profile's overrides. Tokens absent from the whole configuration are never touched. Avoid having another system write the same inline tokens/attribute while the controller owns them: final cleanup restores the captured baseline. Same-origin documents outside a custom root still share the preference, not the CSS scope.
-
-Storage reads/writes are best effort. Selection works in memory if storage access fails. Missing, deleted or unknown saved IDs use the default. A cross-tab key removal or `localStorage.clear()` selects the default; unrelated keys and sessionStorage events are ignored. Changes within a page synchronize immediately, without relying on a storage event from the same tab. Switching before `start()` changes only memory; a later successful storage read takes precedence. `reset()` while stopped cannot clear browser storage.
-
-There is **no automatic cross-subdomain synchronization**: protocol, host and port define the localStorage origin. Agree on IDs, defaults and storage keys across app/docs pages. Migrate retired IDs deliberately if you need something other than default fallback.
-
-## Widget accessibility and customization
-
-The widget is a native select with a localized accessible name, a visible label, selected profile text/description and a visible focus outline. Browser keyboard behavior, selection and focus are retained while profiles switch. The full selected label wraps below the select, including when a long native option cannot fit in a narrow viewport. All profile descriptions are also available in the select title; the current description is exposed through `aria-description`. No generated IDs or live announcements are needed.
-
-`mountWidget(container, regard, {icon:false})` removes the decorative eye; `icon: document => element` provides a decorative replacement. The factory must return a noninteractive element. The eye is original artwork; no Lucide assets are bundled. Style `.openregard*` classes as needed. CSS affects only the widget, uses inherited font and platform Canvas/CanvasText colors, introduces no animations and keeps browser forced colors available. Avoid adding a second border to the wrapper.
+Wire the same properties into authored heading and control styles as needed. Tokens are optional: profile IDs have no built-in meaning. Use `data-regard-profile` selectors if you prefer. The [preset guide](https://openregard.org/docs/#standards-and-token-presets) covers WCAG visual recipes and a WHATWG-inspired native-control recipe, their sources and limits. Presets do not establish accessibility conformance.
 
 ## React
 
 ```tsx
-import { createRegard } from "openregard";
-import { RegardWidget, useProfile } from "openregard/react";
-import "openregard/style.css";
+import { RegardWidget } from "openregard/react";
 
-// Create once per browser app, and once per SSR request (not once per render).
-const regard = createRegard(config);
-function Settings() {
-  return <RegardWidget regard={regard} />;
+// Reuse the controller above; do not create it on each render.
+<RegardWidget regard={regard} className="my-display-widget" />;
+```
+
+React 18/19 is an optional peer. `useProfile(regard)` is available for custom UI. [React, SSR and hydration guide →](https://openregard.org/docs/#react-binding)
+
+## Match your site's design
+
+Both widgets expose the same ordinary DOM, public CSS classes and theme properties. Pass `className` to either binding; the default stylesheet is optional and easy to override:
+
+```js
+mountWidget(container, regard, { className: "my-display-widget", icon: false });
+```
+
+```css
+.my-display-widget {
+  --openregard-control-radius: 0.5rem;
+  --openregard-control-padding: 0.75em;
+  --openregard-gap: 0.75em;
+}
+.my-display-widget .openregard-label {
+  font-weight: 600;
 }
 ```
 
-React is an optional peer and never imported by the core or browser bundle. `useProfile(regard)` uses `useSyncExternalStore` and acquires a browser lease after mounting. `RegardWidget` accepts `icon={false}`, a decorative React node and `className`. Custom icons must not contain interactive elements. React StrictMode and multiple widgets are supported. Custom-root apps should start the controller on that root before mounting.
+Keep visible focus, native control behavior and wrapping text. [All styling hooks, theme variables and examples →](https://openregard.org/docs/#style-the-widget)
 
-## Before paint, static sites and SSR
+## Integration details
 
-All module imports and controller creation are safe without window/document. `start()` needs the browser. For first-paint preferences, copy `dist/browser.js` and your configuration script into your site's assets and load them **synchronously in the head**, before body content. Neither `defer`, `async` nor a module script provides this first-paint guarantee:
+- **Static pages and first paint:** self-host the browser bundle and run a shared configuration synchronously in the head. [Guide →](https://openregard.org/docs/#before-paint-and-static-sites)
+- **Synchronization:** share a controller within an app; use the same storage key and stable IDs across same-origin pages. Storage failures fall back to memory. Cross-subdomain sharing is not automatic. [Guide →](https://openregard.org/docs/#persistence-and-synchronization)
+- **Lifecycle:** widgets acquire a controller lease. `start()` lets a page retain its own lease; final cleanup restores the original root attribute and configured token values. [Guide →](https://openregard.org/docs/#lifecycle-and-cleanup)
+- **API:** configuration, controller methods and validation are in the [reference](https://openregard.org/docs/#define-your-profiles). Module imports and controller creation are SSR-safe.
+- **Adoption:** check your content, reflow, forms, colors and browser preferences using the [adoption contract](docs/adoption-contract.md).
 
-```html
-<script src="/assets/openregard.js"></script>
-<script src="/assets/display-config.js"></script>
-<link rel="stylesheet" href="/assets/openregard.css" />
-```
-
-```js
-// display-config.js: external script, compatible with a self-only script CSP.
-window.siteRegard = OpenRegard.createRegard({/* your configuration */});
-window.stopSiteRegard = window.siteRegard.start();
-```
-
-The global bundle exports the same core API as `openregard`. Bind vanilla widgets after DOMContentLoaded. See [the static example](examples/index.html) and [docs example](examples/docs.html). Self-host pinned assets; test your CSP (token overrides use inline CSS custom properties). With JavaScript disabled the page keeps its site default; provide normal accessible markup regardless of the widget.
-
-For SSR, render with a fresh server controller and the configured default snapshot. On the client, pass the **existing `window.siteRegard` controller** from the synchronous head script into your React tree. Do not create another controller for the same root. Hydration renders the default snapshot first, then subscribes to the saved browser selection without replacing the select. The controller has already applied the saved page CSS before paint. No generated label IDs depend on provider-tree shape. Your surrounding DOM still has to satisfy React's normal hydration rules. If your framework hydrates `<html>` itself, arrange its root attributes/styles to agree with the head initialization using that framework's supported document strategy; do not broadly suppress hydration errors.
-
-Without the synchronous head script, `<RegardWidget>` reads preferences after mounting; that may show the default briefly. To bundle a smaller custom prepaint entry, import `createRegard`, create the page controller and expose the same instance for the client. Keep the configuration consistent between server, client and documentation builds.
-
-## Adoption contract and validation
-
-Read [the adoption contract](docs/adoption-contract.md) before enabling a profile. Open Regard selects a preference; it cannot make an arbitrary site accessible. Installing it is not an accessibility compliance claim.
+## Develop and contribute
 
 ```sh
-npm run check        # types, unit/hydration tests, build and clean tarball consumer
+npm ci
+npm run check        # types, unit/hydration tests, build, clean package consumer
 npx playwright install chromium firefox
-npm run test:browser # native keyboard, tabs, 320px, enlargement, static docs and React
+npm run test:browser # native controls, synchronization, reflow, docs and source tabs
+npm run demo        # packaged examples on localhost:4397
+npm run build:site
+npm run site        # project site on localhost:4399
 ```
 
-The browser demo is included in the package; tests and development tools stay in the repository. See [contributing](CONTRIBUTING.md) for release verification.
+See [contributing](CONTRIBUTING.md), [releases](https://github.com/inferal-oss/openregard/releases) and [issues](https://github.com/inferal-oss/openregard/issues). [Machine-readable site index →](https://openregard.org/llms.txt)
+
+Sponsored by [Inferal](https://inferal.com/). The sponsor's website mark is separate from the reusable widget.

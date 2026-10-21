@@ -1,4 +1,5 @@
-// These example profiles and tokens belong to this example, not to Open Regard.
+// Optional token recipes. Profile names, composition and site styling are yours.
+const { wcagPresets, htmlPresets } = OpenRegardPresets;
 window.regardConfig = {
   version: 1,
   defaultProfile: "standard",
@@ -8,26 +9,44 @@ window.regardConfig = {
     {
       id: "standard",
       label: "Standard",
-      description: "Use the original site presentation.",
+      description: "The original site presentation.",
     },
     {
       id: "roomy",
-      label: "Room to read",
-      description: "Larger text with more generous spacing.",
-      tokens: { "--reading-size": "125%", "--reading-leading": "1.8" },
+      label: "Vision",
+      description: "Larger text with the WCAG text-spacing override values.",
+      tokens: {
+        ...wcagPresets.textSpacing,
+        ...htmlPresets.nativeControls,
+        "--regard-font-size": "125%",
+      },
+    },
+    {
+      id: "vision-contrast",
+      label: "Vision + High Contrast",
+      description:
+        "Larger, spaced text with a restrained palette and stronger borders.",
+      tokens: {
+        ...wcagPresets.textSpacing,
+        ...wcagPresets.contrastLight,
+        ...htmlPresets.nativeControls,
+        "--regard-font-size": "125%",
+      },
     },
     {
       id: "strong",
-      label: "Larger type with stronger contrast and generous spacing",
+      label: "Max Contrast",
       description:
-        "A deliberately long label that remains available below the native select.",
+        "Larger text, generous spacing and black-and-white surfaces.",
       tokens: {
-        "--reading-size": "150%",
-        "--reading-leading": "1.8",
-        "--page-ink": "#111",
-        "--page-paper": "#fff",
-        "--panel-ink": "#fff",
-        "--panel-paper": "#111",
+        ...wcagPresets.textSpacing,
+        ...htmlPresets.nativeControls,
+        "--regard-font-size": "150%",
+        "--regard-page-ink": "#000",
+        "--regard-page-paper": "#fff",
+        "--regard-panel-ink": "#fff",
+        "--regard-panel-paper": "#000",
+        "--regard-border-color": "#000",
       },
     },
   ],

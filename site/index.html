@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="A configurable display-preferences widget for websites, applications and documentation. Define profiles, apply your styles, and keep selections in sync."
+      content="Modular accessibility tools for websites, applications and documentation. Start with Display: configurable preferences that stay in sync."
     />
     <meta name="theme-color" content="#f3f4ed" />
-    <title>Open Regard — configurable display preferences</title>
+    <title>Open Regard — modular accessibility tools</title>
     <script src="./dist/browser.js"></script>
+    <script src="./dist/presets.browser.js"></script>
     <script src="./examples/config.js"></script>
     <link rel="stylesheet" href="./dist/style.css" />
     <link rel="stylesheet" href="./site.css" />
@@ -27,7 +28,7 @@
         <a href="./docs/">Documentation</a
         ><a href="https://www.npmjs.com/package/openregard"
           >npm <span aria-hidden="true">↗</span></a
-        ><a href="#how-it-works">How it works</a
+        ><a href="#how-it-works">Modules</a
         ><a href="#get-started">Get started</a
         ><a href="https://github.com/inferal-oss/openregard"
           >GitHub <span aria-hidden="true">↗</span></a
@@ -37,25 +38,25 @@
     <main id="main">
       <section class="hero shell" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">Open-source accessibility tools</p>
+          <p class="eyebrow">A modular accessibility toolkit</p>
           <h1 id="hero-title">
-            Display settings.<br /><em>That stay in sync.</em>
+            Accessibility tools.<br /><em>Starting with Display.</em>
           </h1>
           <p class="intro">
-            A configurable display-preferences widget for websites, applications
-            and docs. Define profiles, apply your own styles, and remember the
-            selection.
+            Open Regard brings small accessibility tools together as independent
+            modules. The first, Display, adds configurable display preferences
+            to websites, applications and docs.
           </p>
           <div class="actions">
             <a class="button primary" href="#get-started"
-              >Install Open Regard <span aria-hidden="true">↗</span></a
+              >Install Display <span aria-hidden="true">↗</span></a
             ><a class="text-link" href="#try-it"
               >Try the demo <span aria-hidden="true">↓</span></a
             >
           </div>
           <p class="module-note">
-            Display preferences is the first module in Open Regard, a project
-            for small accessibility tools.
+            Use the modules you need. Display is available today; more modules
+            will follow as the toolkit grows.
           </p>
           <p class="understated">
             TypeScript core · Native controls · Optional React · MIT
@@ -66,7 +67,7 @@
             <span class="eyebrow">This is the demo</span
             ><span class="demo-orbit" aria-hidden="true">◉</span>
           </div>
-          <h2>Try it on<br />this website.</h2>
+          <h2>Display, in use<br />on this website.</h2>
           <p>
             This website uses Open Regard. Change the profile below and the
             whole page follows.
@@ -94,12 +95,18 @@
         aria-labelledby="how-title"
       >
         <div class="section-heading">
-          <p class="eyebrow">Module 01 / Display preferences</p>
-          <h2 id="how-title">Define profiles.<br />Share the selection.</h2>
+          <p class="eyebrow">Module 01 / Display · Available now</p>
+          <h2 id="how-title">Display: preferences<br />that stay in sync.</h2>
           <p>
-            Supply your profile names, descriptions and CSS. The controller
-            handles selection, persistence and synchronization.
+            The Display module provides a controller, a native widget, optional
+            React bindings and token presets. Define profiles with your CSS; the
+            module handles persistence and synchronization.
           </p>
+        </div>
+        <div class="module-status">
+          <span class="module-tag">01 / Display</span
+          ><span>Available in <code>openregard</code></span
+          ><span class="module-next">More modules to come</span>
         </div>
         <div class="feature-grid">
           <article>
@@ -176,7 +183,7 @@
   controlLabel: <span class="code-green">'Choose your view'</span>,
   profiles: [
     { id: <span class="code-green">'original'</span>, label: <span class="code-green">'Original'</span> },
-    { id: <span class="code-green">'roomy'</span>, label: <span class="code-green">'Room to read'</span>,
+    { id: <span class="code-green">'roomy'</span>, label: <span class="code-green">'Vision'</span>,
       tokens: { <span class="code-green">'--reading-size'</span>: <span class="code-green">'125%'</span> } }
   ]
 });
@@ -193,7 +200,10 @@ mountWidget(container, regard);</code></pre>
         <div class="section-heading">
           <p class="eyebrow">Take a closer look</p>
           <h2 id="examples-title">Try it in context.</h2>
-          <p>These runnable examples ship in the npm package, too.</p>
+          <p>
+            Explore Display in vanilla HTML, static docs and React. Each example
+            includes highlighted source and uses the optional token presets.
+          </p>
         </div>
         <div class="example-grid">
           <a class="example" href="./examples/"
@@ -256,14 +266,14 @@ mountWidget(container, regard);</code></pre>
           ></a
         >
         <p>
-          Configurable accessibility tools.<br />Display preferences is the
-          first module.
+          A modular accessibility toolkit.<br />Display is the first module.
         </p>
         <nav aria-label="Footer">
           <a href="./docs/">Documentation</a>
           <a href="https://github.com/inferal-oss/openregard">Source code</a
           ><a href="https://www.npmjs.com/package/openregard">npm package</a
-          ><a href="./adoption/">Adoption contract</a>
+          ><a href="./adoption/">Adoption contract</a
+          ><a href="./llms.txt">llms.txt</a>
         </nav>
       </div>
       <div class="footer-bottom">

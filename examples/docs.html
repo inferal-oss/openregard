@@ -3,40 +3,131 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Static documentation — Open Regard</title>
+    <title>Static documentation — Open Regard Display</title>
+    <!-- Self-host synchronous scripts so the saved profile applies before paint. -->
     <script src="../dist/browser.js"></script>
+    <script src="../dist/presets.browser.js"></script>
     <script src="./config.js"></script>
     <link rel="stylesheet" href="../dist/style.css" />
     <link rel="stylesheet" href="./demo.css" />
+    <link rel="icon" href="./mark.svg" type="image/svg+xml" />
   </head>
   <body>
-    <header>
-      <div>
-        <p>OPEN REGARD / STATIC DOCS</p>
-        <h1>The same preference.<br />A separate page.</h1>
-      </div>
-      <div id="controls"></div>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="masthead shell">
+      <a class="brand" href="https://openregard.org/"
+        ><img src="./mark.svg" alt="" />open regard.</a
+      >
+      <span class="meta">Module 01 / Display / Runnable examples</span>
     </header>
-    <nav aria-label="Example navigation">
-      <a href="./">Home</a><a href="./react.html">React example</a>
+    <nav class="example-nav shell" aria-label="Example navigation">
+      <a href="./">Vanilla HTML</a
+      ><a href="./docs.html" aria-current="page">Static docs</a
+      ><a href="./react.html">React</a
+      ><a href="https://openregard.org/docs/">Library documentation ↗</a>
     </nav>
-    <main>
-      <h2>Independent documents can agree</h2>
-      <p>
-        This page uses the same origin, storage key, profile IDs and tokens as
-        the application example. It initializes synchronously in the head,
-        before content is painted.
-      </p>
-      <h2>Keep the adoption contract visible</h2>
-      <p>
-        Apply your CSS to documentation, forms, navigation and portals you own.
-        Check small viewports and enlarged browser settings, including every
-        light and dark surface.
-      </p>
+    <main id="main" class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">02 / Static HTML</p>
+          <h1>A separate page.<br /><em>The same settings.</em></h1>
+          <p class="intro">
+            This independent HTML document reads the shared preference before
+            its content paints. There is no app router or React runtime on this
+            page.
+          </p>
+        </div>
+        <aside class="control-card" aria-label="Display settings">
+          <p class="eyebrow">Try a display profile</p>
+          <div id="controls"></div>
+        </aside>
+      </section>
+
+      <div class="doc-layout">
+        <nav class="doc-index" aria-label="Example document sections">
+          <a href="#initialize">01 / Initialize</a
+          ><a href="#tokens">02 / Apply tokens</a
+          ><a href="#html">03 / Use native HTML</a>
+        </nav>
+        <article class="doc-article">
+          <section id="initialize">
+            <p class="eyebrow">01 / Initialization</p>
+            <h2>Independent documents can agree</h2>
+            <p>
+              Use the same origin, storage key, stable profile IDs and styles in
+              your application and documentation. Load the browser bundle,
+              optional preset bundle and configuration synchronously in the
+              head.
+            </p>
+            <pre
+              class="code-note"
+            ><code>&lt;script src="/assets/openregard.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/presets.js"&gt;&lt;/script&gt;
+&lt;script src="/assets/display-config.js"&gt;&lt;/script&gt;</code></pre>
+          </section>
+          <section id="tokens">
+            <p class="eyebrow">02 / WCAG-informed presentation</p>
+            <h2>Connect tokens to your CSS.</h2>
+            <p>
+              The Vision profile uses the text-spacing override values from WCAG
+              1.4.12. Your CSS consumes the line height, paragraph, letter and
+              word spacing tokens. These values are an override recipe, not a
+              required default design.
+            </p>
+            <ol class="steps">
+              <li>
+                Compose the optional presets into a profile’s
+                <code>tokens</code>.
+              </li>
+              <li>
+                Use the custom properties in headings, body text, navigation and
+                controls.
+              </li>
+              <li>
+                Check the real page at 320 CSS pixels, with enlarged text and
+                your users’ settings.
+              </li>
+            </ol>
+            <p>
+              Vision + High Contrast also uses paired palette tokens whose solid
+              text pairs exceed 7:1. Other colors, imagery and component states
+              still need their own checks.
+            </p>
+          </section>
+          <section id="html">
+            <p class="eyebrow">03 / WHATWG HTML integration</p>
+            <h2>Keep the native behavior.</h2>
+            <p>
+              The widget uses a real label, select and options. The
+              native-controls recipe uses platform color tokens; it cannot
+              create semantics. Use labeled inputs, real links and buttons in
+              the surrounding page as well.
+            </p>
+            <p class="recipe-note">
+              A token preset does not establish accessibility conformance. See
+              the
+              <a href="https://openregard.org/docs/#standards-and-token-presets"
+                >standards and token preset guide</a
+              >
+              for the distinction and sources.
+            </p>
+          </section>
+        </article>
+      </div>
+
       <!-- OPENREGARD_SOURCE -->
     </main>
+    <footer class="shell">
+      <p>
+        Open Regard / Display. Profiles and page styles are configured by the
+        site. Test your integration with your content and users.
+      </p>
+      <a href="https://github.com/inferal-oss/openregard">View the project ↗</a>
+    </footer>
     <script>
-      OpenRegard.mountWidget(document.getElementById("controls"), regard);
+      OpenRegard.mountWidget(document.getElementById("controls"), regard, {
+        className: "demo-widget",
+      });
     </script>
   </body>
 </html>

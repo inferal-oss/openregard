@@ -1,50 +1,55 @@
-/* Widget only: all page typography, colors and layout belong to the adopter. */
-.openregard-widget {
+/* Optional widget-only defaults. Public classes and properties work in both bindings.
+   :where keeps specificity low so adopter styles can override them easily. */
+:where(.openregard-widget) {
   max-inline-size: 100%;
   min-inline-size: 0;
-  color: inherit;
+  color: var(--openregard-color, inherit);
+  font: inherit;
 }
-.openregard {
+:where(.openregard) {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--openregard-gap, 0.5em);
   max-inline-size: 100%;
   min-inline-size: 0;
 }
-.openregard-label {
+:where(.openregard-label) {
   overflow-wrap: anywhere;
 }
-.openregard-icon {
+:where(.openregard-icon) {
   display: inline-flex;
-  flex: 0 0 1.2em;
-  inline-size: 1.2em;
-  block-size: 1.2em;
+  flex: 0 0 var(--openregard-icon-size, 1.2em);
+  inline-size: var(--openregard-icon-size, 1.2em);
+  block-size: var(--openregard-icon-size, 1.2em);
 }
-.openregard-icon svg {
+:where(.openregard-icon svg) {
   inline-size: 100%;
   block-size: 100%;
 }
-.openregard select {
+:where(.openregard-select) {
   box-sizing: border-box;
   max-inline-size: 100%;
   min-inline-size: 0;
   min-block-size: 2.75em;
-  padding: 0.5em;
-  border: 1px solid currentColor;
-  border-radius: 0.3em;
-  background: Canvas;
-  color: CanvasText;
+  padding: var(--openregard-control-padding, 0.5em);
+  border: var(--openregard-control-border-width, 1px) solid
+    var(--openregard-control-border-color, currentColor);
+  border-radius: var(--openregard-control-radius, 0.3em);
+  background: var(--openregard-control-background, Canvas);
+  color: var(--openregard-control-color, CanvasText);
+  color-scheme: var(--openregard-color-scheme, normal);
   font: inherit;
   cursor: pointer;
 }
-.openregard select:focus-visible {
-  outline: 2px solid currentColor;
+:where(.openregard-select:focus-visible) {
+  outline: var(--openregard-focus-width, 2px) solid
+    var(--openregard-focus-color, currentColor);
   outline-offset: 3px;
 }
-.openregard-description {
+:where(.openregard-description) {
   display: block;
   margin-block-start: 0.35em;
   overflow-wrap: anywhere;
-  font-size: 0.9em;
+  font-size: var(--openregard-description-size, 0.9em);
 }

@@ -7,7 +7,7 @@ for (const width of [320, 1280])
     await page.goto("/.pages/");
     await expect(
       page.getByRole("heading", {
-        name: "Display settings. That stay in sync.",
+        name: "Accessibility tools. Starting with Display.",
       }),
     ).toBeVisible();
     const first = page.getByRole("combobox").first();
@@ -84,3 +84,14 @@ for (const width of [320, 1280])
     ).toBe(true);
     await expect(page.locator(".contract-number")).toHaveCount(0);
   });
+
+test("publishes llms.txt and Markdown docs", async ({ request }) => {
+  const index = await request.get("/.pages/llms.txt");
+  expect(index.ok()).toBe(true);
+  expect(await index.text()).toContain(
+    "https://openregard.org/docs/display.md",
+  );
+  const docs = await request.get("/.pages/docs/display.md");
+  expect(docs.ok()).toBe(true);
+  expect(await docs.text()).toContain("## Style the widget");
+});

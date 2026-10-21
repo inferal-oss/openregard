@@ -32,11 +32,15 @@ try {
     join(dir, "core.mjs"),
     `import assert from 'node:assert/strict';
 import {createRegard} from 'openregard';
+import {wcagPresets,htmlPresets} from 'openregard/presets';
+assert.equal(wcagPresets.text200['--regard-font-size'],'200%');
+assert.equal(htmlPresets.nativeControls['--openregard-control-background'],'Canvas');
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 const config={version:1,defaultProfile:'base',storageKey:'smoke',controlLabel:'Display',profiles:[{id:'base',label:'Base'}]};
 assert.equal(createRegard(config).getSnapshot(),'base');
 const sandbox={};vm.runInNewContext(readFileSync(import.meta.resolve('openregard/browser.js').replace('file://',''),'utf8'),sandbox);assert.equal(sandbox.OpenRegard.createRegard(config).getSnapshot(),'base');
+vm.runInNewContext(readFileSync(import.meta.resolve('openregard/presets/browser.js').replace('file://',''),'utf8'),sandbox);assert.equal(sandbox.OpenRegardPresets.wcagPresets.text200['--regard-font-size'],'200%');
 assert.ok(readFileSync(import.meta.resolve('openregard/style.css').replace('file://',''),'utf8').includes('.openregard'));`,
   );
   execFileSync(process.execPath, ["core.mjs"], { cwd: dir, stdio: "inherit" });
@@ -62,6 +66,7 @@ assert.ok(readFileSync(import.meta.resolve('openregard/style.css').replace('file
     "examples/docs.html",
     "examples/react.html",
     "dist/browser.js",
+    "dist/presets.browser.js",
     "dist/react-demo.js",
     "dist/style.css",
     "dist/source-viewer.js",
